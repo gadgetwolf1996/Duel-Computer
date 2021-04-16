@@ -18,6 +18,10 @@ async function getUser() {
     document.getElementById("cardImg").remove();
     getCardData();
   });
+  document.getElementById("subBtn").addEventListener("click", function(){
+    document.getElementById("cardImg").remove();
+    getCardData(cardNameSearch(document.getElementById("search").value));
+  });
 }
 
 function slashcheck() {
@@ -28,9 +32,24 @@ function slashcheck() {
   }
 }
 
-function getCardData(){
+function cardNameSearch(cardName) {
+  for (i = 0; i < data.data.length; i++){
+    if (data.data[i].name.includes(cardName)) {
+      return i;
+    }
+  }
+}
+
+function getCardData(cardData = -1){
   // Retreiving data from JSON 
-    const user = data.data[getRandomInt(data.data.length)];
+    var user;
+    if(cardData > -1){
+      user = data.data[cardData];
+    }
+    else{
+      user = data.data[getRandomInt(data.data.length)];
+    }
+    
     let id = user.id;
     let name = user.name;
     let type = user.type;
@@ -40,7 +59,11 @@ function getCardData(){
     
     console.log(desc);
     desc = desc.replace(/(\r\n|\n|\r|\n\r)/g, "<br>");
-    desc = desc.replace(" / ", "<br>");
+    if(desc.includes("\" / \"")){
+    }
+    else{
+      desc = desc.replace(" / ", "<br>");
+    }
   
     //images
     let image = user.card_images[0].image_url; 
@@ -55,6 +78,9 @@ function getCardData(){
     
     if (type.includes("Monster")){
         document.getElementById("Attribute").innerHTML = attribute;
+    }
+    else{
+        document.getElementById("Attribute").innerHTML = "";
     }
     
     if(type != "Normal Tuner Monster" && type != "Normal Monster" && type != "Token"){
