@@ -1,7 +1,6 @@
 const api_url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?format=tcg"; 
 let data;//json data
 
-
 async function getUser() { 
     
     // Making an API call (request) 
@@ -13,6 +12,7 @@ async function getUser() {
     
     console.log(data.data); 
   
+  slashcheck();
   getCardData();
   document.getElementById("rndBtn").addEventListener("click", function () {
     document.getElementById("cardImg").remove();
@@ -20,21 +20,28 @@ async function getUser() {
   });
 }
 
-
+function slashcheck() {
+  for (i = 0; i < data.data.length; i++){
+    if (data.data[i].desc.includes(" / ")) {
+      console.log(data.data[i].name);
+    }
+  }
+}
 
 function getCardData(){
   // Retreiving data from JSON 
-    const user = data.data[getRandomInt(10513)];
+    const user = data.data[getRandomInt(data.data.length)];
     let id = user.id;
     let name = user.name;
     let type = user.type;
-    let desc = user.desc;
+    var desc = user.desc;
     let race = user.race;
     let attribute = user.attribute;
     
     console.log(desc);
-
-
+    desc = desc.replace(/(\r\n|\n|\r|\n\r)/g, "<br>");
+    desc = desc.replace(" / ", "<br>");
+  
     //images
     let image = user.card_images[0].image_url; 
     let image_icon = user.card_images[0].image_url_small;
@@ -50,8 +57,8 @@ function getCardData(){
         document.getElementById("Attribute").innerHTML = attribute;
     }
     
-    if(type != "Normal Monster" && type != "Token"){
-        document.getElementById("Desc").innerHTML = analyseDesc(desc);
+    if(type != "Normal Tuner Monster" && type != "Normal Monster" && type != "Token"){
+      document.getElementById("Desc").innerHTML = analyseDesc(desc, type);
     }
     else{
         document.getElementById("Desc").innerHTML = desc;
@@ -87,40 +94,58 @@ function getCardData(){
   
 let cardText;
 let effectSegment;
-function analyseDesc(desc){
+function analyseDesc(desc, type){
     var htmlConversion = "";
     cardText = desc;
     var condition = "";
     var edSummonCon = "";
     //Extra Deck summon condition
-    var edcheck = cardText.includes("\r\n");
-    if(edcheck){
-        edSummonCon = cardText.split("\r\n");
+    //var edcheck = cardText.includes("\n");
+    var edmon;
+    if (type == "Fusion Monster" || type == "Link Monster" || type == "Pendulum Effect Fusion Monster" || type == "Synchro Monster" || type == "Synchro Pendulum Effect Monster" || type == "Synchro Tuner Monster" || type == "XYZ Monster" || type == "XYZ Pendulum Effect Monster") {
+      edmon = true;
+      cardText = cardText.replace("<br>", "<br id=\"extradecksplit\">");
+      console.log(cardText.split("<br id=\"extradecksplit\">")[0]);
+      edSummonCon = cardText.split("<br id=\"extradecksplit\">")[0];
+      cardText = cardText.split("<br id=\"extradecksplit\">")[1];
+    }
+    else {
+      edmon = false;
+    }
+    /*if(type == "Synchro Monster" || type == "XYZ Monster" || type == "Fusion Monster" || type == "Link Monster"){
+        if(cardText.)
         cardText= edSummonCon[1];
-        edSummonCon = "<p>" + edSummonCon[0] + "</p>";
+        edSummonCon = "<p>" + edSummonCon[0] + "<br>" + "</p>";
         htmlConversion += edSummonCon;
+    }*/
+    if (cardText != undefined) {
+      cardText = cardText.split(".");
+      var multicheck = Array.isArray(cardText);
+      if (multicheck) {
+        cardText.forEach(effect => {
+          if (effect != "") {
+            effectSegment = effect;
+            htmlConversion += ActivationConditions();
+            htmlConversion += CostTargetting();
+            htmlConversion += "<span style=color:blue>" + effectSegment + "." + "</span>";
+          }
+        });
+      }
+      else {
+        effectSegment = cardText;
+        htmlConversion += ActivationConditions();
+        htmlConversion += CostTargetting();
+        htmlConversion += "<span style=color:blue>" + effectSegment + "</span>";
+      }
     }
-
-    cardText = cardText.split(".");
-    var multicheck = Array.isArray(cardText);
-    if(multicheck){
-      cardText.forEach(effect => {
-        if (effect != "") {
-          effectSegment = effect;
-          htmlConversion += ActivationConditions();
-          htmlConversion += CostTargetting();
-          htmlConversion += "<span style=color:blue>" + effectSegment + "." + "\r\n" + "</span>";
-        }
-          });
+  
+    if (edmon) {
+      return "<div id=\"EdSummonCon\">" + edSummonCon + "</div>" + "<div id=\"Effect\">" + htmlConversion + "</div>";
     }
-    else{
-          effectSegment = cardText;
-          htmlConversion += ActivationConditions();
-          htmlConversion += CostTargetting();
-          htmlConversion += "<span style=color:blue>" + effectSegment + "</span>";
+    else {
+      return "<div id=\"Effect\">" + htmlConversion + "</div>";
     }
     
-    return htmlConversion;
   }
 
 function ActivationConditions(){
