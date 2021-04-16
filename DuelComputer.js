@@ -1,5 +1,7 @@
 const api_url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?format=tcg"; 
 let data;//json data
+
+
 async function getUser() { 
     
     // Making an API call (request) 
@@ -11,12 +13,14 @@ async function getUser() {
     
     console.log(data.data); 
   
+  getCardData();
+  document.getElementById("rndBtn").addEventListener("click", function () {
+    document.getElementById("cardImg").remove();
     getCardData();
+  });
 }
 
-document.getElementById("rndBtn").addEventListener("Click", function () {
-  getCardData();
-});
+
 
 function getCardData(){
   // Retreiving data from JSON 
@@ -71,7 +75,8 @@ function getCardData(){
 */  
     // Creating a new element and appending it 
     // to previously created containers 
-    let img = document.createElement("img"); 
+    let img = document.createElement("img");
+    img.id = "cardImg";
     let img_div = document.getElementById("user-img"); 
     img.src = image; 
     img_div.append(img); 
@@ -99,18 +104,20 @@ function analyseDesc(desc){
     cardText = cardText.split(".");
     var multicheck = Array.isArray(cardText);
     if(multicheck){
-          cardText.forEach(effect => {
-              effectSegment = effect;
-              htmlConversion += ActivationConditions();
-              htmlConversion += CostTargetting();
-              htmlConversion += "<span style=color:blue>" + effectSegment + "." + "</span>";
+      cardText.forEach(effect => {
+        if (effect != "") {
+          effectSegment = effect;
+          htmlConversion += ActivationConditions();
+          htmlConversion += CostTargetting();
+          htmlConversion += "<span style=color:blue>" + effectSegment + "." + "\r\n" + "</span>";
+        }
           });
     }
     else{
           effectSegment = cardText;
           htmlConversion += ActivationConditions();
           htmlConversion += CostTargetting();
-          htmlConversion += "<span style=color:blue>" + effectSegment + "." + "</span>";
+          htmlConversion += "<span style=color:blue>" + effectSegment + "</span>";
     }
     
     return htmlConversion;

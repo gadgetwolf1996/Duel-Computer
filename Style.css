@@ -1,37 +1,38 @@
-.content { 
-    text-align: center; 
-    padding: 30px; 
-    margin: 0px auto; 
-  } 
+.content {
+  text-align: left;
+  padding: 30px;
+  margin: 0px auto;
+}
 
-  .details { 
-    padding: 30px;
-    margin-left: auto; 
-    margin-right: auto;
-    float: left;
-  } 
+.details {
+  padding: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  float: left;
+}
 
-  desc {
-      float:right;
-  }
+desc {
+  float: right;
+}
 
-  img { 
-    display: block;
-    border-radius: 5px; 
-    box-shadow: black; 
-    max-height:500px;
-    max-width:50%;
-    width:auto;
-    height:auto;
-    float: left;
-  } 
+img {
+  display: block;
+  border-radius: 5px;
+  box-shadow: black;
+  max-height: 500px;
+  max-width: 50%;
+  width: auto;
+  height: auto;
+  float: left;
+  padding: 1%;
+}
 
-  table, 
-  td { 
-    border-collapse: collapse; 
-    margin-left: auto; 
-    margin-right: auto; 
-    text-align: center; 
-    padding: 10px; 
-    border: 1px solid black; 
-  }
+table,
+td {
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding: 10px;
+  border: 1px solid black;
+}
