@@ -1,17 +1,25 @@
-  const api_url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?format=tcg"; 
-  
-  async function getUser() { 
+const api_url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?format=tcg"; 
+let data;//json data
+async function getUser() { 
     
     // Making an API call (request) 
     // and getting the response back 
     const response = await fetch(api_url); 
   
     // Parsing it to JSON format 
-    const data = await response.json(); 
+    data = await response.json(); 
     
     console.log(data.data); 
   
-    // Retreiving data from JSON 
+    getCardData();
+}
+
+document.getElementById("rndBtn").addEventListener("Click", function () {
+  getCardData();
+});
+
+function getCardData(){
+  // Retreiving data from JSON 
     const user = data.data[getRandomInt(10513)];
     let id = user.id;
     let name = user.name;
@@ -70,70 +78,68 @@
   
     //const favicon = document.getElementById("favicon"); 
     //favicon.setAttribute("href", image_icon); 
-  } 
+}
   
-  let cardText;
-  let effectSegment;
-  function analyseDesc(desc){
-      var htmlConversion = "";
-      cardText = desc;
-      var condition = "";
-      var edSummonCon = "";
-      //Extra Deck summon condition
-      var edcheck = cardText.includes("\r\n");
-      if(edcheck){
-          edSummonCon = cardText.split("\r\n");
-          cardText= edSummonCon[1];
-          edSummonCon = "<p>" + edSummonCon[0] + "</p>";
-          htmlConversion += edSummonCon;
-      }
-
-      cardText = cardText.split(".");
-      var multicheck = Array.isArray(cardText);
-      if(multicheck){
-            cardText.forEach(effect => {
-                effectSegment = effect;
-                htmlConversion += ActivationConditions();
-                htmlConversion += CostTargetting();
-                htmlConversion += effectSegment + ".";
-            });
-        }
-        else{
-            effectSegment = cardText;
-            htmlConversion += ActivationConditions();
-            htmlConversion += CostTargetting();
-            htmlConversion += effectSegment;
-        }
-
-      
-      
-      return htmlConversion;
-  }
-
-  function ActivationConditions(){
-    var context = "";
-    var concheck = effectSegment.includes(":");
-    if (concheck){
-        context = effectSegment.split(":");
-        effectSegment = context[1];
-        context = "<span style=color:blue>" + context[0] + ": " + "</span>";
-      }
-      return context;
-  }
-
-  function CostTargetting(){
-    var costext = "";
-    var coscheck = effectSegment.includes(";");
-    if(coscheck){
-        costext = effectSegment.split(";");
-        effectSegment = costext[1];
-        costext = "<span style=color:green>" + costext[0] + "; " + "</span>";
+let cardText;
+let effectSegment;
+function analyseDesc(desc){
+    var htmlConversion = "";
+    cardText = desc;
+    var condition = "";
+    var edSummonCon = "";
+    //Extra Deck summon condition
+    var edcheck = cardText.includes("\r\n");
+    if(edcheck){
+        edSummonCon = cardText.split("\r\n");
+        cardText= edSummonCon[1];
+        edSummonCon = "<p>" + edSummonCon[0] + "</p>";
+        htmlConversion += edSummonCon;
     }
-    return costext;
+
+    cardText = cardText.split(".");
+    var multicheck = Array.isArray(cardText);
+    if(multicheck){
+          cardText.forEach(effect => {
+              effectSegment = effect;
+              htmlConversion += ActivationConditions();
+              htmlConversion += CostTargetting();
+              htmlConversion += "<span style=color:blue>" + effectSegment + "." + "</span>";
+          });
+    }
+    else{
+          effectSegment = cardText;
+          htmlConversion += ActivationConditions();
+          htmlConversion += CostTargetting();
+          htmlConversion += "<span style=color:blue>" + effectSegment + "." + "</span>";
+    }
+    
+    return htmlConversion;
   }
 
-  function getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
+function ActivationConditions(){
+  var context = "";
+  var concheck = effectSegment.includes(":");
+  if (concheck){
+      context = effectSegment.split(":");
+      effectSegment = context[1];
+      context = "<span style=color:green>" + context[0] + ": " + "</span>";
+    }
+    return context;
+}
+
+function CostTargetting(){
+  var costext = "";
+  var coscheck = effectSegment.includes(";");
+  if(coscheck){
+      costext = effectSegment.split(";");
+      effectSegment = costext[1];
+      costext = "<span style=color:red>" + costext[0] + "; " + "</span>";
   }
-  // Calling the function 
-  getUser();
+  return costext;
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+// Calling the function 
+getUser();
