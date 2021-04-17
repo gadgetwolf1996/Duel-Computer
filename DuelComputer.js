@@ -1,3 +1,8 @@
+//Card Search Bar
+
+
+
+//Card analysis
 const api_url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?format=tcg"; 
 let data;//json data
 
@@ -10,7 +15,11 @@ async function getUser() {
     // Parsing it to JSON format 
     data = await response.json(); 
     
-    console.log(data.data); 
+    console.log(data.data);
+    var cardnames = [];
+    for(var i = 0; i < data.data.length; i++){
+      cardnames[i] = data.data[i].name;
+    }
   
   slashcheck();
   getCardData();
@@ -18,6 +27,39 @@ async function getUser() {
     document.getElementById("cardImg").remove();
     getCardData();
   });
+  //Predictive Text
+  const searchbar = document.getElementById("search");
+  const suggestion = document.getElementById("suggestion-container");
+  let suggestedWord = "";
+  let suggestedWordArray = [];
+  let currentWordIndex = 0;
+  let insertText = false;
+  searchbar.addEventListener("input", e => {
+    if(e.data != " "){
+      insertText = true;
+    }
+    if(insertText == false){
+      searchbar.value = "";
+    }
+
+    let inputValue = e.target.value;
+    suggestedWordArray = filterArray(cardnames, inputValue);
+    suggestedWord = suggestedWordArray[0];
+
+    if(suggestedWord != undefined){
+      var HTMLSetup = "";
+      for(i = 0; i < suggestedWordArray.length; i++){
+        HTMLSetup += "<li><span>" + suggestedWordArray[i] + "</span></li>";
+      }
+      suggestion.innerHTML = HTMLSetup;
+    }
+
+    if(inputValue.length == 0 || suggestedWordArray.length == 0){
+      suggestion.innerHTML = "";
+    }
+  });
+
+
   document.getElementById("subBtn").addEventListener("click", function(){
     document.getElementById("cardImg").remove();
     getCardData(cardNameSearch(document.getElementById("search").value));
@@ -199,5 +241,27 @@ function CostTargetting(){
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
+
+
+function filterArray(array, item, reverse = false) {
+	if (reverse) {
+		return array
+			.filter(word => compareTwoStrings(word, item))
+			.sort((a, b) => a.length - b.length);
+	} else {
+		return array
+			.filter(word => compareTwoStrings(word, item))
+			.sort((a, b) => b.length - a.length);
+	}
+}
+
+function compareTwoStrings(string, subString) {
+	let temp = "";
+  if(string.includes(subString)){
+    temp = string;
+    return subString;
+  } 
+}
+
 // Calling the function 
 getUser();
