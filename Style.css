@@ -1,5 +1,4 @@
 .content {
-  text-align: left;
   padding: 30px;
   margin: 0px auto;
 }
@@ -11,20 +10,46 @@
   float: left;
 }
 
+.topnav{
+  overflow: hidden;
+  background-color: #333;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 26%;
+  height: auto;
+}
+
 desc {
   float: right;
 }
 
+.search-container{
+  text-align: center;
+  height:auto;
+}
 img {
   display: block;
   border-radius: 5px;
   box-shadow: black;
-  max-height: 500px;
-  max-width: 50%;
-  width: auto;
+  /*max-height: 100%;*/
+  max-width: 40%;
+  text-align:center;
+  width: 30%;
   height: auto;
-  float: left;
-  padding: 1%;
+}
+
+img{
+  margin-top:7%;
+}
+
+#cardImg{
+  margin-left: auto;
+  margin-right: auto;
+  object-fit:none;
+  object-position: -49px -110px;
+  height: 324px;
+  width: 324px;
+  border-radius: 0px;
 }
 
 table,

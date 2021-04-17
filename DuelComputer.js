@@ -113,7 +113,7 @@ function getCardData(cardData = -1){
     
     document.title = name;
 
-    document.getElementById("Name").innerHTML = name;
+    /*document.getElementById("Name").innerHTML = name;
     document.getElementById("Id").innerHTML = id;
     document.getElementById("Type").innerHTML = type;
     document.getElementById("Race").innerHTML = race;
@@ -130,7 +130,7 @@ function getCardData(cardData = -1){
     }
     else{
         document.getElementById("Desc").innerHTML = desc;
-    }
+    }*/
   /*
     // Accessing the div container and modify/add 
     // elements to the containers 
