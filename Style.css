@@ -12,6 +12,25 @@
   font-family: "Matrix Flavour";
   src: url("/Fonts/Flavour/itc-stone-serif-lt-italic.ttf") format("truetype");
 }
+
+#rndBtn {
+  float: right;
+}
+
+div {
+}
+
+#blankImg {
+  position: absolute;
+  top: 1px;
+  z-index: 0;
+}
+
+#cardImg {
+  position: absolute;
+  z-index: -1;
+  scale: 99%;
+}
 /*Effect Text Font*/
 .effect {
   font-family: "Matrix Effect";
@@ -22,13 +41,16 @@ p {
   padding: 0;
   margin: 0;
 }
+
 h3,
 h2 {
   font-family: "Matrix Title";
   font-variant: small-caps;
   text-transform: capitalize;
-  line-height: 0%;
-  margin: 0px 0 0px 0;
+  text-align: justify;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  white-space: nowrap;
 }
 
 .content {
@@ -54,7 +76,6 @@ h2 {
   height: auto;
   float: left;
   text-align: center;
-  background-color: aqua;
   position: relative;
 }
 
@@ -75,18 +96,17 @@ td {
 }
 .Name {
   position: absolute;
-  top: 50px;
+  top: 32px;
   left: 33px;
   font-size: 26px;
+  overflow-wrap: normal;
 }
 .Race {
-  background-color: #e8ccc0;
   position: absolute;
-  top: 473px;
+  top: 460px;
   left: 33px;
 }
 .desc {
-  background-color: #e8ccc0;
   position: absolute;
   top: 482px;
   left: 32px;
@@ -103,13 +123,13 @@ td {
 }*/
 .id {
   position: absolute;
-  top: 584px;
+  top: 580px;
   left: 19px;
   font-size: 13px;
 }
 .Attribute {
   position: absolute;
-  top: 32px;
-  right: 33px;
+  top: 35px;
+  left: 353px;
   scale: 115%;
 }

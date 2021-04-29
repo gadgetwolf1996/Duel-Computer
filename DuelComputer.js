@@ -15,7 +15,6 @@ async function getUser() {
   slashcheck();
   getCardData();
   document.getElementById("rndBtn").addEventListener("click", function () {
-    document.getElementById("cardImg").remove();
     getCardData();
   });
 }
@@ -43,63 +42,75 @@ function getCardData(){
   //set card information variables
   id = user.id;
   name = user.name;
-  type = user.type;
+  type = user.type.replace(' Card', '').replace('Flip ', '').replace('Tuner ','').replace('Toon ','').replace('Spirit ','').replace('Union ','').replace('Gemini ','');
   desc = user.desc;
   race = user.race;
   attribute = user.attribute;
-    
-    console.log(desc);
-    desc = desc.replace(/(\r\n|\n|\r|\n\r)/g, "<br>");
-    desc = desc.replace(" / ", "<br>");
   
-    //images
-    let image = user.card_images[0].image_url; 
-    let image_icon = user.card_images[0].image_url_small;
-    
-    document.title = name;
+  console.log(desc);
+  desc = desc.replace(/(\r\n|\n|\r|\n\r)/g, "<br>");
+  desc = desc.replace(" / ", "<br>");
+  
+  //images
+  let image = user.card_images[0].image_url; 
+  let image_icon = user.card_images[0].image_url_small;
+  
+  document.title = name;
 
-    document.getElementById("Name").innerHTML = name;
-    document.getElementById("Id").innerHTML = id;
-    document.getElementById("Type").innerHTML = type;
-    document.getElementById("Race").innerHTML = race;
-    
-    if (type.includes("Monster")){
-        document.getElementById("Attribute").src = "/Templates/Attributes/"+attribute+".png";
+  document.getElementById("Name").innerHTML = name;
+  document.getElementById("Id").innerHTML = id;
+  document.getElementById("Type").innerHTML = type;
+  if (type.includes("Monster")) {
+    var temp = type;
+    temp = temp.replace(' Monster', '').replace('Normal', '');
+    var templist = temp.split(' ');
+    document.getElementById("Race").innerHTML = "[ " + race + " / ";
+    for (let index = 0; index < templist.length; index++) {
+      if (index == templist.length - 1) {
+        document.getElementById("Race").innerHTML += templist[index] + " ]";
+      }
+      else {
+        document.getElementById("Race").innerHTML += templist[index] + " / ";
+      }
     }
-    
-    if(type != "Normal Tuner Monster" && type != "Normal Monster" && type != "Token"){
-      document.getElementById("Desc").innerHTML = analyseDesc(desc, type);
-    }
-    else{
-        document.getElementById("Desc").innerHTML = desc;
-    }
-  /*
-    // Accessing the div container and modify/add 
-    // elements to the containers 
-    document.getElementById("head").innerHTML = fullName; 
-    document.getElementById("email").href = "mailto:" + email; 
-    document.getElementById("email").innerHTML = email; 
-    document.getElementById("phone").href = "tel:" + phone; 
-    document.getElementById("phone").innerHTML = phone; 
-    // accessing the span container 
-    document.querySelector("#age").textContent = age; 
-    document.querySelector("#gender").textContent = gender; 
+  }
   
-    document.querySelector("#location").textContent  
-          = city + ", " + state; 
+  if (type.includes("Monster")){
+    document.getElementById("Attribute").src = "/Templates/Attributes/" + attribute + ".png";
+  }
+  
+  if(type != "Normal Tuner Monster" && type != "Normal Monster" && type != "Token"){
+    document.getElementById("Desc").innerHTML = analyseDesc(desc, type);
+  }
+  else{
+    document.getElementById("Desc").innerHTML = desc;
+  }
+  /*
+  // Accessing the div container and modify/add 
+  // elements to the containers 
+  document.getElementById("head").innerHTML = fullName; 
+  document.getElementById("email").href = "mailto:" + email; 
+  document.getElementById("email").innerHTML = email; 
+  document.getElementById("phone").href = "tel:" + phone; 
+  document.getElementById("phone").innerHTML = phone; 
+  // accessing the span container 
+  document.querySelector("#age").textContent = age; 
+  document.querySelector("#gender").textContent = gender; 
+  
+  document.querySelector("#location").textContent  
+        = city + ", " + state; 
       
     document.querySelector("#country").textContent = country; 
 */  
-    // Creating a new element and appending it 
-    // to previously created containers 
-    let img = document.createElement("img");
-    img.id = "cardImg";
-    let img_div = document.getElementById("user-img"); 
-    img.src = image; 
-    img_div.append(img); 
-  
-    //const favicon = document.getElementById("favicon"); 
-    //favicon.setAttribute("href", image_icon); 
+  // Creating a new element and appending it 
+  // to previously created containers 
+  let img = document.getElementById("cardImg");
+  img.src = image;
+
+  let blankImg = document.getElementById("blankImg");
+  blankImg.src = "/Templates/"+type+".png";
+  //const favicon = document.getElementById("favicon"); 
+  //favicon.setAttribute("href", image_icon); 
 }
   
 let cardText;
