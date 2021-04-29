@@ -18,9 +18,9 @@
   line-height: auto;
 }
 
-p{
-  padding : 0;
-  margin : 0;
+p {
+  padding: 0;
+  margin: 0;
 }
 h3,
 h2 {
@@ -31,12 +31,6 @@ h2 {
   margin: 0px 0 0px 0;
 }
 
-.Effect {
-  
-}
-div {
-  
-}
 .content {
   text-align: left;
   padding: 30px;
@@ -81,8 +75,9 @@ td {
 }
 .Name {
   position: absolute;
-  top: 20px;
-  left: 35px;
+  top: 50px;
+  left: 33px;
+  font-size: 26px;
 }
 .Race {
   background-color: #e8ccc0;
@@ -108,11 +103,13 @@ td {
 }*/
 .id {
   position: absolute;
-  top: 565px;
-  left: 25px;
+  top: 584px;
+  left: 19px;
+  font-size: 13px;
 }
 .Attribute {
   position: absolute;
-  top: 20px;
-  right: 25px;
+  top: 32px;
+  right: 33px;
+  scale: 115%;
 }

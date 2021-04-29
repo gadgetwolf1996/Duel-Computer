@@ -64,7 +64,7 @@ function getCardData(){
     document.getElementById("Race").innerHTML = race;
     
     if (type.includes("Monster")){
-        document.getElementById("Attribute").innerHTML = attribute;
+        document.getElementById("Attribute").src = "/Templates/Attributes/"+attribute+".png";
     }
     
     if(type != "Normal Tuner Monster" && type != "Normal Monster" && type != "Token"){
