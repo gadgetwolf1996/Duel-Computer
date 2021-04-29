@@ -30,13 +30,23 @@ function slashcheck() {
 
 function getCardData(){
   // Retreiving data from JSON 
-    const user = data.data[getRandomInt(data.data.length)];
-    let id = user.id;
-    let name = user.name;
-    let type = user.type;
-    var desc = user.desc;
-    let race = user.race;
-    let attribute = user.attribute;
+  const user = data.data[getRandomInt(data.data.length)];
+
+  //card information variables cleared
+  var id = "";
+  var name = "";
+  var type = "";
+  var desc = "";
+  var race = "";
+  var attribute = "";
+
+  //set card information variables
+  id = user.id;
+  name = user.name;
+  type = user.type;
+  desc = user.desc;
+  race = user.race;
+  attribute = user.attribute;
     
     console.log(desc);
     desc = desc.replace(/(\r\n|\n|\r|\n\r)/g, "<br>");
@@ -140,10 +150,10 @@ function analyseDesc(desc, type){
     }
   
     if (edmon) {
-      return "<div id=\"EdSummonCon\">" + edSummonCon + "</div>" + "<div id=\"Effect\">" + htmlConversion + "</div>";
+      return "<div class=\"EdSummonCon\" id=\"EdSummonCon\">" + edSummonCon + "</div>" + "<div class=\"Effect\" id=\"Effect\">" + htmlConversion + "</div>";
     }
     else {
-      return "<div id=\"Effect\">" + htmlConversion + "</div>";
+      return "<div class=\"Effect\" id=\"Effect\">" + htmlConversion + "</div>";
     }
     
   }

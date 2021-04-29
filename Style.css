@@ -1,7 +1,21 @@
+@font-face {
+  font-family: "Matrix";
+  src: url("/Matrix_Regular.ttf") format("truetype");
+}
+
+p,
+span {
+  font-family: "Matrix";
+}
+div {
+  background-color: cornflowerblue;
+  position: absolute;
+}
 .content {
   text-align: left;
   padding: 30px;
   margin: 0px auto;
+  background-color: blue;
 }
 
 .details {
@@ -11,20 +25,18 @@
   float: left;
 }
 
-desc {
-  float: right;
-}
-
-img {
+.img {
   display: block;
-  border-radius: 5px;
+  /*border-radius: 5px;*/
   box-shadow: black;
   max-height: 500px;
   max-width: 50%;
   width: auto;
   height: auto;
   float: left;
-  padding: 1%;
+  text-align: center;
+  background-color: aqua;
+  position: relative;
 }
 
 table,
@@ -35,4 +47,42 @@ td {
   text-align: center;
   padding: 10px;
   border: 1px solid black;
+}
+
+.Type {
+  position: absolute;
+  top: 65px;
+  right: 138px;
+}
+.Name {
+  position: absolute;
+  top: 20px;
+  left: 35px;
+}
+.Race {
+  position: absolute;
+  top: 447px;
+  left: 33px;
+}
+.desc {
+  position: absolute;
+  top: 481px;
+  left: 30px;
+  text-align: left;
+  width: 360px;
+}
+.EdSummonCon {
+  position: absolute;
+  top: 520px;
+  left: 50px;
+}
+.id {
+  position: absolute;
+  top: 565px;
+  left: 25px;
+}
+.Attribute {
+  position: absolute;
+  top: 20px;
+  right: 25px;
 }
