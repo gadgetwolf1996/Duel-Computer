@@ -150,10 +150,10 @@ function analyseDesc(desc, type){
     }
   
     if (edmon) {
-      return "<div class=\"EdSummonCon\" id=\"EdSummonCon\">" + edSummonCon + "</div>" + "<div class=\"Effect\" id=\"Effect\">" + htmlConversion + "</div>";
+      return "<div class=\"EdSummonCon\" id=\"EdSummonCon\"> <p class=\"effect\">" + edSummonCon + "</p></div>" + "<div class=\"Effect\" id=\"Effect\"> <p class=\"effect\">" + htmlConversion + "</p></div>";
     }
     else {
-      return "<div class=\"Effect\" id=\"Effect\">" + htmlConversion + "</div>";
+      return "<div class=\"Effect\" id=\"Effect\"> <p class=\"effect\">" + htmlConversion + "</p></div>";
     }
     
   }
@@ -164,7 +164,7 @@ function ActivationConditions(){
   if (concheck){
       context = effectSegment.split(":");
       effectSegment = context[1];
-      context = "<span style=color:green>" + context[0] + ": " + "</span>";
+      context = "<span class=\"effect\" style=color:green>" + context[0] + ": " + "</span>";
     }
     return context;
 }

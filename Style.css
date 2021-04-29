@@ -1,21 +1,46 @@
 @font-face {
-  font-family: "Matrix";
-  src: url("/Matrix_Regular.ttf") format("truetype");
+  font-family: "Matrix Title";
+  src: url("/Fonts/Titles/Matrix_Regular.ttf") format("truetype");
 }
 
-p,
-span {
-  font-family: "Matrix";
+@font-face {
+  font-family: "Matrix Effect";
+  src: url("/Fonts/Effect/Matrix_Book.tff") format("truetype");
+}
+
+@font-face {
+  font-family: "Matrix Flavour";
+  src: url("/Fonts/Flavour/itc-stone-serif-lt-italic.ttf") format("truetype");
+}
+/*Effect Text Font*/
+.effect {
+  font-family: "Matrix Effect";
+  line-height: auto;
+}
+
+p{
+  padding : 0;
+  margin : 0;
+}
+h3,
+h2 {
+  font-family: "Matrix Title";
+  font-variant: small-caps;
+  text-transform: capitalize;
+  line-height: 0%;
+  margin: 0px 0 0px 0;
+}
+
+.Effect {
+  
 }
 div {
-  background-color: cornflowerblue;
-  position: absolute;
+  
 }
 .content {
   text-align: left;
   padding: 30px;
   margin: 0px auto;
-  background-color: blue;
 }
 
 .details {
@@ -60,22 +85,27 @@ td {
   left: 35px;
 }
 .Race {
+  background-color: #e8ccc0;
   position: absolute;
-  top: 447px;
+  top: 473px;
   left: 33px;
 }
 .desc {
+  background-color: #e8ccc0;
   position: absolute;
-  top: 481px;
-  left: 30px;
-  text-align: left;
-  width: 360px;
+  top: 482px;
+  left: 32px;
+  text-align: justify;
+  width: 355px;
+  height: auto;
+  font-size: 12.25px;
+  line-height: 10.75px;
 }
-.EdSummonCon {
+/*.EdSummonCon {
   position: absolute;
-  top: 520px;
+  top: 1px;
   left: 50px;
-}
+}*/
 .id {
   position: absolute;
   top: 565px;
