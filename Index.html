@@ -9,16 +9,16 @@
     <script src="fitty.min.js"></script>
     <script>
       
-      function Resize() {
-        fitty('.effect', {
-          minSize: 10,
-          maxSize: 20,
-          multiLine: true
-        });
+      function ResizeName() {
         fitty('h2', {
           minSize: 10,
-          maxSize: 30,
+          maxSize: 40,
           multiLine: false
+        });
+        fitty('p', {
+          minSize: 9,
+          maxSize: 13,
+          multiLine: true
         });
       }
     </script>
@@ -27,12 +27,13 @@
   <link rel="stylesheet"  type="text/css" href="Style.css"> 
 </head> 
   
-<body onload="Resize()">
+<body >
   <button id="rndBtn" >Random card</button>
+  <button onclick="Resize()">Reload</button>
   <div class="img" id="user-img">
-    <img id="cardImg" src="" onload="Resize()">
+    <img id="cardImg" src="">
     <img id="blankImg" src="">
-    <div class="Name"><h2 id="Name"></h2></div>  
+    <div class="Name"><h2 id="Name" onload="Resize()"></h2></div>  
     <div class="id"><p id="Id"></p></div>
     <div class="Type"><h3 id="Type"></h3></div>
     <div class="Race"><h3 id="Race"></h3></div>

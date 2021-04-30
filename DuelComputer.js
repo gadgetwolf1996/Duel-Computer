@@ -57,9 +57,7 @@ function getCardData(){
   
   document.title = name;
 
-  document.getElementById("Name").innerHTML = name;
-  document.getElementById("Id").innerHTML = id;
-  document.getElementById("Type").innerHTML = type;
+  
   if (type.includes("Monster")) {
     var temp = type;
     temp = temp.replace(' Monster', '').replace('Normal', '');
@@ -85,6 +83,10 @@ function getCardData(){
   else{
     document.getElementById("Desc").innerHTML = desc;
   }
+  
+  document.getElementById("Name").innerHTML = name;
+  document.getElementById("Id").innerHTML = id;
+  document.getElementById("Type").innerHTML = type;
   /*
   // Accessing the div container and modify/add 
   // elements to the containers 
@@ -166,7 +168,7 @@ function analyseDesc(desc, type){
     }
   
     if (edmon) {
-      return "<div class=\"EdSummonCon\" id=\"EdSummonCon\"> <p class=\"effect\">" + edSummonCon + "</p></div>" + "<div class=\"Effect\" id=\"Effect\"> <p class=\"effect\">" + htmlConversion + "</p></div>";
+      return "<div class=\"EdSummonCon\" id=\"EdSummonCon\"> <p class=\"edCon\">" + edSummonCon + "</p></div>" + "<div class=\"Effect\" id=\"Effect\"> <p class=\"effect\">" + htmlConversion + "</p></div>";
     }
     else {
       return "<div class=\"Effect\" id=\"Effect\"> <p class=\"effect\">" + htmlConversion + "</p></div>";

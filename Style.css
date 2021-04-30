@@ -13,12 +13,12 @@
   src: url("/Fonts/Flavour/itc-stone-serif-lt-italic.ttf") format("truetype");
 }
 
-#rndBtn {
+button {
   float: right;
 }
 
 div {
-    line-height: 1;
+  line-height: 14.5px;
 }
 
 #blankImg {
@@ -36,6 +36,8 @@ div {
 .effect {
   font-family: "Matrix Effect";
   line-height: auto;
+  width: 352px;
+  height: 77px;
 }
 
 p {
@@ -43,7 +45,17 @@ p {
   margin: 0;
 }
 
-h3,
+h3 {
+  font-family: "Matrix Title";
+  font-variant: small-caps;
+  text-transform: capitalize;
+  text-align: justify;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
 h2 {
   font-family: "Matrix Title";
   font-variant: small-caps;
@@ -52,6 +64,8 @@ h2 {
   margin-top: 0px;
   margin-bottom: 0px;
   white-space: nowrap;
+  font-weight: 575;
+  font-stretch: extra-expanded;
 }
 
 .content {
@@ -95,22 +109,29 @@ td {
   top: 65px;
   right: 138px;
 }
+
+#Name {
+  width: 310px;
+  height: 34px;
+}
+
 .Name {
   position: absolute;
   top: 32px;
   left: 33px;
-  max-width: 286px;
-  overflow-wrap: normal;
+  width: 310px;
+  height: 34px;
 }
+
 .Race {
   position: absolute;
-  top: 460px;
+  top: 459px;
   left: 33px;
   font-size: 17px;
 }
 .desc {
   position: absolute;
-  top: 476px;
+  top: 473px;
   left: 34px;
   text-align: justify;
   width: 352px;
