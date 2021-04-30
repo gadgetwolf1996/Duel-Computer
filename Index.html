@@ -6,15 +6,31 @@
   <meta name="viewport" content= 
     "width=device-width, initial-scale=1.0" /> 
     <script src="DuelComputer.js"></script>
+    <script src="fitty.min.js"></script>
+    <script>
+      
+      function Resize() {
+        fitty('.effect', {
+          minSize: 10,
+          maxSize: 20,
+          multiLine: true
+        });
+        fitty('h2', {
+          minSize: 10,
+          maxSize: 30,
+          multiLine: false
+        });
+      }
+    </script>
   <!-- font-awesome library to make the  
       webpage more appealing -->
   <link rel="stylesheet"  type="text/css" href="Style.css"> 
 </head> 
   
-<body>
-  <button id="rndBtn">Random card</button>
+<body onload="Resize()">
+  <button id="rndBtn" >Random card</button>
   <div class="img" id="user-img">
-    <img id="cardImg" src="">
+    <img id="cardImg" src="" onload="Resize()">
     <img id="blankImg" src="">
     <div class="Name"><h2 id="Name"></h2></div>  
     <div class="id"><p id="Id"></p></div>

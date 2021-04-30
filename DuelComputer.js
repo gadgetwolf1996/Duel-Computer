@@ -108,7 +108,12 @@ function getCardData(){
   img.src = image;
 
   let blankImg = document.getElementById("blankImg");
-  blankImg.src = "/Templates/"+type+".png";
+  if (type == "Ritual Effect Monster") {
+    blankImg.src = "/Templates/"+type.replace(' Effect', '')+".png";
+  }
+  else {
+    blankImg.src = "/Templates/"+type+".png";
+  }
   //const favicon = document.getElementById("favicon"); 
   //favicon.setAttribute("href", image_icon); 
 }
@@ -175,7 +180,7 @@ function ActivationConditions(){
   if (concheck){
       context = effectSegment.split(":");
       effectSegment = context[1];
-      context = "<span class=\"effect\" style=color:green>" + context[0] + ": " + "</span>";
+      context = "<span style=color:green>" + context[0] + ": " + "</span>";
     }
     return context;
 }
