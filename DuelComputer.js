@@ -42,7 +42,13 @@ function getCardData(){
   //set card information variables
   id = user.id;
   name = user.name;
-  type = user.type.replace(' Card', '').replace('Flip ', '').replace('Tuner ','').replace('Toon ','').replace('Spirit ','').replace('Union ','').replace('Gemini ','');
+  type = user.type.replace(' Card', '').replace('Flip ', '').replace('Tuner ', '').replace('Toon', 'Effect').replace('Spirit', 'Effect').replace('Union ', '').replace('Gemini', 'Effect');
+  if (type.includes("Pendulum") || type.includes("Synchro") || type.includes("Normal") || type.includes("Effect")) {
+    type = type.replace('Tuner ', '');
+  }
+  else {
+    type = type.replace('Tuner', 'Effect');
+  }
   desc = user.desc;
   race = user.race;
   attribute = user.attribute;
@@ -59,8 +65,9 @@ function getCardData(){
 
   
   if (type.includes("Monster")) {
+    document.getElementById("Desc").style.top = 473 + "px";
     var temp = type;
-    temp = temp.replace(' Monster', '').replace('Normal', '');
+    temp = temp.replace(' Monster', '');
     var templist = temp.split(' ');
     document.getElementById("Race").innerHTML = "[ " + race + " / ";
     for (let index = 0; index < templist.length; index++) {
@@ -72,19 +79,34 @@ function getCardData(){
       }
     }
   }
+  else {
+    document.getElementById("Race").innerHTML = "";
+    document.getElementById("Desc").style.top = 459 + "px";
+  }
   
   if (type.includes("Monster")){
     document.getElementById("Attribute").src = "/Templates/Attributes/" + attribute + ".png";
   }
+  else {
+    document.getElementById("Attribute").src = "/Templates/Attributes/" + type + ".png";
+  }
   
-  if(type != "Normal Tuner Monster" && type != "Normal Monster" && type != "Token"){
-    document.getElementById("Desc").innerHTML = analyseDesc(desc, type);
+  if (type != "Normal Tuner Monster" && type != "Normal Monster" && type != "Token") {
+    document.getElementById("Effect").style.fontFamily = "Matrix Book";
+    document.getElementById("Effect").innerHTML = analyseDesc(desc, type);
   }
   else{
-    document.getElementById("Desc").innerHTML = desc;
+    document.getElementById("Effect").innerHTML = desc;
+    document.getElementById("Effect").style.fontFamily = "Matrix Flavour";
   }
   
   document.getElementById("Name").innerHTML = name;
+  if (type.includes("XYZ") || type.includes("Trap") || type.includes("Link") || type.includes("Spell")) {
+    document.getElementById("Name").style.color = 'white';
+  }
+  else {
+    document.getElementById("Name").style.color = 'black';
+  }
   document.getElementById("Id").innerHTML = id;
   document.getElementById("Type").innerHTML = type;
   /*
@@ -117,7 +139,8 @@ function getCardData(){
     blankImg.src = "/Templates/"+type+".png";
   }
   //const favicon = document.getElementById("favicon"); 
-  //favicon.setAttribute("href", image_icon); 
+  //favicon.setAttribute("href", image_icon);
+  fitty.fitAll();
 }
   
 let cardText;
@@ -168,10 +191,10 @@ function analyseDesc(desc, type){
     }
   
     if (edmon) {
-      return "<div class=\"EdSummonCon\" id=\"EdSummonCon\"> <p class=\"edCon\">" + edSummonCon + "</p></div>" + "<div class=\"Effect\" id=\"Effect\"> <p class=\"effect\">" + htmlConversion + "</p></div>";
+      return "<font class=\"EdSummonCon\">" + edSummonCon + "</font>" + "<br><font class=\"Effect\">" + htmlConversion + "</font>";
     }
     else {
-      return "<div class=\"Effect\" id=\"Effect\"> <p class=\"effect\">" + htmlConversion + "</p></div>";
+      return "<font class=\"Effect\">" + htmlConversion + "</font>";
     }
     
   }
@@ -182,7 +205,7 @@ function ActivationConditions(){
   if (concheck){
       context = effectSegment.split(":");
       effectSegment = context[1];
-      context = "<span style=color:green>" + context[0] + ": " + "</span>";
+      context = "<font style=color:green>" + context[0] + ": " + "</font>";
     }
     return context;
 }

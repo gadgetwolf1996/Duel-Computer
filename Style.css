@@ -33,14 +33,11 @@ div {
   scale: 99%;
 }
 /*Effect Text Font*/
-.effect {
+p {
   font-family: "Matrix Effect";
   line-height: auto;
   width: 352px;
   height: 77px;
-}
-
-p {
   padding: 0;
   margin: 0;
 }
@@ -110,17 +107,14 @@ td {
   right: 138px;
 }
 
-#Name {
-  width: 310px;
-  height: 34px;
-}
-
 .Name {
   position: absolute;
   top: 32px;
   left: 33px;
-  width: 310px;
+  width: 280px;
   height: 34px;
+  padding: 0%;
+  margin: 0%;
 }
 
 .Race {
@@ -147,12 +141,12 @@ td {
 .id {
   position: absolute;
   top: 580px;
-  left: 19px;
+  left: -135px;
   font-size: 13px;
 }
 .Attribute {
   position: absolute;
-  top: 35px;
-  left: 353px;
-  scale: 115%;
+  top: -120px;
+  left: 200px;
+  scale: 12%;
 }
