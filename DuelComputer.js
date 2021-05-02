@@ -24,7 +24,6 @@ async function getUser() {
   slashcheck();
   getCardData();
   document.getElementById("rndBtn").addEventListener("click", function () {
-    document.getElementById("cardImg").remove();
     getCardData();
   });
   //Predictive Text
@@ -84,80 +83,132 @@ function cardNameSearch(cardName) {
 
 function getCardData(cardData = -1){
   // Retreiving data from JSON 
-    var user;
-    if(cardData > -1){
-      user = data.data[cardData];
-    }
-    else{
-      user = data.data[getRandomInt(data.data.length)];
-    }
-    
-    let id = user.id;
-    let name = user.name;
-    let type = user.type;
-    var desc = user.desc;
-    let race = user.race;
-    let attribute = user.attribute;
-    
-    console.log(desc);
-    desc = desc.replace(/(\r\n|\n|\r|\n\r)/g, "<br>");
-    if(desc.includes("\" / \"")){
-    }
-    else{
-      desc = desc.replace(" / ", "<br>");
-    }
-  
-    //images
-    let image = user.card_images[0].image_url; 
-    let image_icon = user.card_images[0].image_url_small;
-    
-    document.title = name;
+  var user;
+  if(cardData > -1){
+    user = data.data[cardData];
+  }
+  else{
+    user = data.data[getRandomInt(data.data.length)];
+  }
 
-    /*document.getElementById("Name").innerHTML = name;
-    document.getElementById("Id").innerHTML = id;
-    document.getElementById("Type").innerHTML = type;
-    document.getElementById("Race").innerHTML = race;
-    
-    if (type.includes("Monster")){
-        document.getElementById("Attribute").innerHTML = attribute;
-    }
-    else{
-        document.getElementById("Attribute").innerHTML = "";
-    }
-    
-    if(type != "Normal Tuner Monster" && type != "Normal Monster" && type != "Token"){
-      document.getElementById("Desc").innerHTML = analyseDesc(desc, type);
-    }
-    else{
-        document.getElementById("Desc").innerHTML = desc;
-    }*/
-  /*
-    // Accessing the div container and modify/add 
-    // elements to the containers 
-    document.getElementById("head").innerHTML = fullName; 
-    document.getElementById("email").href = "mailto:" + email; 
-    document.getElementById("email").innerHTML = email; 
-    document.getElementById("phone").href = "tel:" + phone; 
-    document.getElementById("phone").innerHTML = phone; 
-    // accessing the span container 
-    document.querySelector("#age").textContent = age; 
-    document.querySelector("#gender").textContent = gender; 
+  //card information variables cleared
+  var id = "";
+  var name = "";
+  var type = "";
+  var desc = "";
+  var race = "";
+  var attribute = "";
+
+  //set card information variables
+  id = user.id;
+  name = user.name;
+  type = user.type.replace(' Card', '').replace('Flip ', '').replace('Tuner ', '').replace('Toon', 'Effect').replace('Spirit', 'Effect').replace('Union ', '').replace('Gemini', 'Effect');
+  if (type.includes("Pendulum") || type.includes("Synchro") || type.includes("Normal") || type.includes("Effect")) {
+    type = type.replace('Tuner ', '');
+  }
+  else {
+    type = type.replace('Tuner', 'Effect');
+  }
+  desc = user.desc;
+  race = user.race;
+  attribute = user.attribute;
+
+  console.log(desc);
+  desc = desc.replace(/(\r\n|\n|\r|\n\r)/g, "<br>");
+  if(desc.includes("\" / \"")){
+  }
+  else{
+    desc = desc.replace(" / ", "<br>");
+  }
   
-    document.querySelector("#location").textContent  
-          = city + ", " + state; 
+  //console.log(desc);
+  //desc = desc.replace(/(\r\n|\n|\r|\n\r)/g, "<br>");
+  //desc = desc.replace(" / ", "<br>");
+  
+  //images
+  let image = user.card_images[0].image_url; 
+  let image_icon = user.card_images[0].image_url_small;
+  
+  document.title = name;
+
+  
+  if (type.includes("Monster")) {
+    document.getElementById("Desc").style.top = 473 + "px";
+    var temp = type;
+    temp = temp.replace(' Monster', '');
+    var templist = temp.split(' ');
+    document.getElementById("Race").innerHTML = "[ " + race + " / ";
+    for (let index = 0; index < templist.length; index++) {
+      if (index == templist.length - 1) {
+        document.getElementById("Race").innerHTML += templist[index] + " ]";
+      }
+      else {
+        document.getElementById("Race").innerHTML += templist[index] + " / ";
+      }
+    }
+  }
+  else {
+    document.getElementById("Race").innerHTML = "";
+    document.getElementById("Desc").style.top = 459 + "px";
+  }
+  
+  if (type.includes("Monster")){
+    document.getElementById("Attribute").src = "/Templates/Attributes/" + attribute + ".png";
+  }
+  else {
+    document.getElementById("Attribute").src = "/Templates/Attributes/" + type + ".png";
+  }
+  
+  if (type != "Normal Tuner Monster" && type != "Normal Monster" && type != "Token") {
+    document.getElementById("Effect").style.fontFamily = "Matrix Book";
+    document.getElementById("Effect").innerHTML = analyseDesc(desc, type);
+  }
+  else{
+    document.getElementById("Effect").innerHTML = desc;
+    document.getElementById("Effect").style.fontFamily = "Matrix Flavour";
+  }
+  
+  document.getElementById("Name").innerHTML = name;
+  if (type.includes("XYZ") || type.includes("Trap") || type.includes("Link") || type.includes("Spell")) {
+    document.getElementById("Name").style.color = 'white';
+  }
+  else {
+    document.getElementById("Name").style.color = 'black';
+  }
+  document.getElementById("Id").innerHTML = id;
+  document.getElementById("Type").innerHTML = type;
+  /*
+  // Accessing the div container and modify/add 
+  // elements to the containers 
+  document.getElementById("head").innerHTML = fullName; 
+  document.getElementById("email").href = "mailto:" + email; 
+  document.getElementById("email").innerHTML = email; 
+  document.getElementById("phone").href = "tel:" + phone; 
+  document.getElementById("phone").innerHTML = phone; 
+  // accessing the span container 
+  document.querySelector("#age").textContent = age; 
+  document.querySelector("#gender").textContent = gender; 
+  
+  document.querySelector("#location").textContent  
+        = city + ", " + state; 
       
     document.querySelector("#country").textContent = country; 
 */  
-    // Creating a new element and appending it 
-    // to previously created containers 
-    let img = document.createElement("img");
-    img.id = "cardImg";
-    let img_div = document.getElementById("user-img"); 
-    img.src = image; 
-    img_div.append(img); 
-  
-    //const favicon = document.getElementById("favicon"); 
-    //favicon.setAttribute("href", image_icon); 
+  // Creating a new element and appending it 
+  // to previously created containers 
+  let img = document.getElementById("cardImg");
+  img.src = image;
+
+  let blankImg = document.getElementById("blankImg");
+  if (type == "Ritual Effect Monster") {
+    blankImg.src = "/Templates/"+type.replace(' Effect', '')+".png";
+  }
+  else {
+    blankImg.src = "/Templates/"+type+".png";
+  }
+  //const favicon = document.getElementById("favicon"); 
+  //favicon.setAttribute("href", image_icon);
+  fitty.fitAll();
 }
   
 let cardText;
@@ -208,10 +259,10 @@ function analyseDesc(desc, type){
     }
   
     if (edmon) {
-      return "<div id=\"EdSummonCon\">" + edSummonCon + "</div>" + "<div id=\"Effect\">" + htmlConversion + "</div>";
+      return "<font class=\"EdSummonCon\">" + edSummonCon + "</font>" + "<br><font class=\"Effect\">" + htmlConversion + "</font>";
     }
     else {
-      return "<div id=\"Effect\">" + htmlConversion + "</div>";
+      return "<font class=\"Effect\">" + htmlConversion + "</font>";
     }
     
   }
@@ -222,7 +273,7 @@ function ActivationConditions(){
   if (concheck){
       context = effectSegment.split(":");
       effectSegment = context[1];
-      context = "<span style=color:green>" + context[0] + ": " + "</span>";
+      context = "<font style=color:green>" + context[0] + ": " + "</font>";
     }
     return context;
 }
