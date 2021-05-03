@@ -1,13 +1,18 @@
 //Card Search Bar
+var maxChar = 300;
 
-
+function updateFontDefault(){
+  descFontSize = window.getComputedStyle(document.getElementById('Effect'), null).getPropertyValue('font-size').replace('px','');
+  descLineHeight = window.getComputedStyle(document.getElementById('Effect'), null).getPropertyValue('line-height').replace('px', '');
+  console.log("Fontsize reset: " + descFontSize);
+}
 
 //Card analysis
 const api_url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?format=tcg"; 
 let data;//json data
 
 async function getUser() { 
-    
+    //let descFontSize = document.getElementById("Effect").style.fontSize;
     // Making an API call (request) 
     // and getting the response back 
     const response = await fetch(api_url); 
@@ -22,7 +27,7 @@ async function getUser() {
     }
   
   slashcheck();
-  getCardData();
+  //getCardData();
   document.getElementById("rndBtn").addEventListener("click", function () {
     getCardData();
   });
@@ -60,7 +65,8 @@ async function getUser() {
 
 
   document.getElementById("subBtn").addEventListener("click", function(){
-    document.getElementById("cardImg").remove();
+    //document.getElementById("cardImg").remove();
+    //document.getElementById("blankImg").remove();
     getCardData(cardNameSearch(document.getElementById("search").value));
   });
 }
@@ -133,7 +139,7 @@ function getCardData(cardData = -1){
 
   
   if (type.includes("Monster")) {
-    document.getElementById("Desc").style.top = 473 + "px";
+    document.getElementById("Desc").style.top = 470 + "px";
     var temp = type;
     temp = temp.replace(' Monster', '');
     var templist = temp.split(' ');
@@ -149,7 +155,7 @@ function getCardData(cardData = -1){
   }
   else {
     document.getElementById("Race").innerHTML = "";
-    document.getElementById("Desc").style.top = 459 + "px";
+    document.getElementById("Desc").style.top = 470 + "px";
   }
   
   if (type.includes("Monster")){
@@ -160,14 +166,43 @@ function getCardData(cardData = -1){
   }
   
   if (type != "Normal Tuner Monster" && type != "Normal Monster" && type != "Token") {
-    document.getElementById("Effect").style.fontFamily = "Matrix Book";
+    document.getElementById("Effect").style.fontFamily = "Matrix";
     document.getElementById("Effect").innerHTML = analyseDesc(desc, type);
+    
   }
   else{
     document.getElementById("Effect").innerHTML = desc;
     document.getElementById("Effect").style.fontFamily = "Matrix Flavour";
   }
-  
+
+
+  //font size alteration
+  console.log(tempFontSize);
+  document.getElementById('Effect').style.fontSize= descFontSize + 'px';
+  document.getElementById('Effect').style.lineHeight = descLineHeight + 'px';
+  var tempFontSize = window.getComputedStyle(document.getElementById('Effect'), null).getPropertyValue('font-size').replace('px','');
+  var tempLineHeight = window.getComputedStyle(document.getElementById('Effect'), null).getPropertyValue('line-height').replace('px','');
+
+  if(type.includes('Spell') || type.includes('Trap')){
+    tempMaxChar = maxChar + 40;
+  }
+  else{
+    tempMaxChar = maxChar;
+  }
+
+  if(desc.length > tempMaxChar){
+    document.getElementById('Effect').style.fontSize = (tempFontSize *( tempMaxChar / desc.length)) + "px";
+    document.getElementById('Effect').style.lineHeight = tempLineHeight * (tempMaxChar / desc.length) + "px";
+  }
+  ////font debugging
+  console.log("DefaultJSFontSize: " + descFontSize);
+  console.log("Current Font Size: " + window.getComputedStyle(document.getElementById('Effect'), null).getPropertyValue('font-size'));
+  console.log("Desc length: " + desc.length);
+  console.log("Percentage Difference: " + (tempMaxChar / desc.length));
+  console.log("Font Size: " + (tempFontSize * (tempMaxChar/desc.length)));
+  console.log((tempFontSize *( tempMaxChar / desc.length)) + "px");
+
+  //Title Font colour change
   document.getElementById("Name").innerHTML = name;
   if (type.includes("XYZ") || type.includes("Trap") || type.includes("Link") || type.includes("Spell")) {
     document.getElementById("Name").style.color = 'white';
@@ -208,7 +243,6 @@ function getCardData(cardData = -1){
   }
   //const favicon = document.getElementById("favicon"); 
   //favicon.setAttribute("href", image_icon);
-  fitty.fitAll();
 }
   
 let cardText;
