@@ -2,9 +2,10 @@
 var maxChar = 300;
 
 function updateFontDefault(){
-  descFontSize = window.getComputedStyle(document.getElementById('Effect'), null).getPropertyValue('font-size').replace('px','');
-  descLineHeight = window.getComputedStyle(document.getElementById('Effect'), null).getPropertyValue('line-height').replace('px', '');
+  descFontSize = parseInt(window.getComputedStyle(document.getElementById('Effect'), null).getPropertyValue('font-size').replace('px',''));
+  descLineHeight = parseInt(window.getComputedStyle(document.getElementById('Effect'), null).getPropertyValue('line-height').replace('px', ''));
   console.log("Fontsize reset: " + descFontSize);
+  descTitleFontSize = parseInt(window.getComputedStyle(document.getElementById("Name"), null).getPropertyValue('font-size'));
 }
 
 //Card analysis
@@ -108,7 +109,7 @@ function getCardData(cardData = -1){
   //set card information variables
   id = user.id;
   name = user.name;
-  type = user.type.replace(' Card', '').replace('Flip ', '').replace('Tuner ', '').replace('Toon', 'Effect').replace('Spirit', 'Effect').replace('Union ', '').replace('Gemini', 'Effect');
+  type = user.type.replace(' Card', '').replace('Flip ', '').replace('Toon', 'Effect').replace('Spirit', 'Effect').replace('Union ', '').replace('Gemini', 'Effect');
   if (type.includes("Pendulum") || type.includes("Synchro") || type.includes("Normal") || type.includes("Effect")) {
     type = type.replace('Tuner ', '');
   }
@@ -139,7 +140,8 @@ function getCardData(cardData = -1){
 
   
   if (type.includes("Monster")) {
-    document.getElementById("Desc").style.top = 470 + "px";
+    document.getElementById("Desc").style.top = 475 + "px";
+    document.getElementById("Desc").style.height = 73 + "px";
     var temp = type;
     temp = temp.replace(' Monster', '');
     var templist = temp.split(' ');
@@ -155,7 +157,8 @@ function getCardData(cardData = -1){
   }
   else {
     document.getElementById("Race").innerHTML = "";
-    document.getElementById("Desc").style.top = 470 + "px";
+    document.getElementById("Desc").style.top = 458 + "px";
+    document.getElementById("Desc").style.height = 110 + "px";
   }
   
   if (type.includes("Monster")){
@@ -177,6 +180,10 @@ function getCardData(cardData = -1){
 
 
   //font size alteration
+  var returnedVar = scaleFont(desc.length);
+  document.getElementById('Effect').style.fontSize = returnedVar[0] +'px';
+  document.getElementById('Effect').style.lineHeight = returnedVar[1]+'px';
+  /*
   console.log(tempFontSize);
   document.getElementById('Effect').style.fontSize= descFontSize + 'px';
   document.getElementById('Effect').style.lineHeight = descLineHeight + 'px';
@@ -200,7 +207,7 @@ function getCardData(cardData = -1){
   console.log("Desc length: " + desc.length);
   console.log("Percentage Difference: " + (tempMaxChar / desc.length));
   console.log("Font Size: " + (tempFontSize * (tempMaxChar/desc.length)));
-  console.log((tempFontSize *( tempMaxChar / desc.length)) + "px");
+  console.log((tempFontSize *( tempMaxChar / desc.length)) + "px");*/
 
   //Title Font colour change
   document.getElementById("Name").innerHTML = name;
@@ -210,6 +217,7 @@ function getCardData(cardData = -1){
   else {
     document.getElementById("Name").style.color = 'black';
   }
+  document.getElementById("Name").style.fontSize = scaleTitleFont(name.length) + "px";
   document.getElementById("Id").innerHTML = id;
   document.getElementById("Type").innerHTML = type;
   /*
@@ -346,6 +354,67 @@ function compareTwoStrings(string, subString) {
     temp = string;
     return subString;
   } 
+}
+
+function calcRowsUsed(fontSize, lineHeight, descLength, log = false){
+  var width = parseInt(window.getComputedStyle(document.getElementById('Desc'), null).getPropertyValue('width'));
+  var height = parseInt(window.getComputedStyle(document.getElementById('Desc'), null).getPropertyValue('height'));
+  var charPerRow = width/(fontSize/2);
+  var maxRows = height/lineHeight;
+  var rowsUsed = descLength / charPerRow;
+  var excess = maxRows - rowsUsed;
+  
+  if(log){
+    console.log("Width: " + width);  
+    console.log("Height: " + height);
+    console.log("Total No. of Charcters: " + descLength);
+    console.log("Characters per row: " + charPerRow);
+    console.log("Max Rows: " + maxRows);
+    console.log("Rows used: " + rowsUsed);
+    console.log("Excess: " + excess);
+  }
+
+  return excess;
+}
+
+function calcNewTitleFont(fontSize, width, titleLength){
+  var charPerRow = width/(fontSize/2);
+  console.log("Title Length: " + titleLength);
+  console.log("MaxChars: " + charPerRow);
+  //var actualChars = titleLength/charPerRow;
+  var excess = charPerRow - titleLength;
+  
+  console.log("Difference: " + excess);
+  return excess;
+}
+
+function scaleTitleFont(titleLength){
+  var scaledTitleFont = descTitleFontSize;
+  var width = parseInt(window.getComputedStyle(document.getElementById('Desc'), null).getPropertyValue('width'));
+  //var charCount = width / (scaledTitleFont/2);
+  console.log("---Title Size Calc---");
+  while(calcNewTitleFont(scaledTitleFont, width, titleLength) <=-4){
+    scaledTitleFont = scaledTitleFont - 1;
+    console.log("Updated Title Font: " + scaledTitleFont);
+    console.log("---New Size Calc---");
+  }
+
+  console.log("New Title Font Size: " + scaledTitleFont);
+  return scaledTitleFont;
+}
+
+function scaleFont(descLength){
+  var currentValues= new Array(descFontSize, descLineHeight);
+  console.log("---Font Scaling Start---");
+  while(calcRowsUsed(currentValues[0], currentValues[1], descLength, true) <= -1.5){
+    currentValues[1] = currentValues[1] - 1;
+    currentValues[0] = currentValues[0] - 1;
+    console.log("New Font Size: " + currentValues[0] + " | New Line Height: " + currentValues[1]);
+    console.log("---Next Font Scaling---");
+  }
+  console.log("New Font Size: " + currentValues[0]);
+  console.log("New Row Size: " + currentValues[1]);
+  return currentValues;
 }
 
 // Calling the function 

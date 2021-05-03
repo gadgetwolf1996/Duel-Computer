@@ -18,13 +18,13 @@ div {
 
 #blankImg {
   position: absolute;
-  top:1.5%;
   z-index: 0;
 }
 
 #cardImg {
   position: absolute;
-  top:1%;
+  width:420px;
+  height:610px;
   z-index: -1;
   /*scale: auto 617px;*/
 }
@@ -40,7 +40,6 @@ p {
 h3 {
   font-family: 'Matrix';
   font-variant: small-caps;
-  text-transform: capitalize;
   text-align: justify;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -51,13 +50,10 @@ h3 {
 h2 {
   font-family: 'Matrix';
   font-variant: small-caps;
-  text-transform: capitalize;
+  font-weight: 95;
   text-align: justify;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin-top: 5px;
   white-space: nowrap;
-  font-weight: 575;
-  font-stretch: extra-expanded;
 }
 
 .content {
@@ -116,38 +112,40 @@ td {
 
 .Type {
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 80px;
+  right: 40px;
 }
 
 .Name {
   position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 280px;
-  height: 34px;
+  top: 34px;
+  left: 35px;
+  width: 310px;
+  height: 31px;
   padding: 0%;
   margin: 0%;
 }
 
 .Race {
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 460px;
+  left: 35px;
   font-size: 17px;
 }
-.desc {
+#Desc {
   position: absolute;
   top: 0px;
-  left: 40px;
+  left: 35px;
   text-align: justify;
   width: 352px;
-  height: 77px;
+  height: 73px;
 }
 
 #Effect{
   font-size: 18px;
   line-height: 17px;
+  
+  font-weight: lighter;
 }
 /*.EdSummonCon {
   position: absolute;
@@ -156,18 +154,24 @@ td {
 }*/
 .id {
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 578px;
+  left: 25px;
 }
 .Attribute {
   position: absolute;
-  top: 0px;
-  left: 0px;
-  scale: 0px;
+  top: -120px;
+  left: 202px;
+  scale: 12%;
 }
 
 .Interactable{
+  position:absolute;
   width:420px;
   height:610px;
-  top: 1.5%;
+}
+
+#Name{
+  font-size:38px;
+  display:flex;
+  align-items: center;
 }
