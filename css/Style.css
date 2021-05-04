@@ -5,7 +5,12 @@
 
 @font-face {
   font-family: "Matrix Flavour";
-  src: url("Fonts/itc-stone-serif-lt-italic.ttf") format("truetype");
+  src: url("Fonts/StoneSerifITCProMediumIt.OTF") format("opentype");
+}
+
+@font-face {
+  font-family: "ITC Bold";
+  src: url(Fonts/StoneSerifITCProSemiBd.OTF) format("opentype");
 }
 
 button {
@@ -38,13 +43,11 @@ p {
 }
 
 h3 {
-  font-family: 'Matrix';
   font-variant: small-caps;
   text-align: justify;
   margin-top: 0px;
   margin-bottom: 0px;
   white-space: nowrap;
-  font-weight: 600;
 }
 
 h2 {
@@ -128,9 +131,11 @@ td {
 
 .Race {
   position: absolute;
-  top: 460px;
+  top: 458px;
   left: 35px;
-  font-size: 17px;
+  font-size: 14px;
+  font-family: "ITC Bold";
+  font-weight: 600;
 }
 #Desc {
   position: absolute;
@@ -142,9 +147,8 @@ td {
 }
 
 #Effect{
-  font-size: 18px;
-  line-height: 17px;
-  
+  font-size: 17px;
+  line-height: 15px;
   font-weight: lighter;
 }
 /*.EdSummonCon {
@@ -174,4 +178,9 @@ td {
   font-size:38px;
   display:flex;
   align-items: center;
+}
+
+span:hover{
+  background: antiquewhite;
+  opacity: 0.5;
 }
