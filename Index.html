@@ -1,40 +1,56 @@
 <!DOCTYPE html> 
 <html lang="en"> 
-  
+
 <head> 
-  <meta charset="UTF-8" /> 
-  <meta name="viewport" content= 
+    <meta charset="UTF-8" /> 
+    <meta name="viewport" content= 
     "width=device-width, initial-scale=1.0" /> 
-    <script src="DuelComputer.js"></script>
-  <!-- font-awesome library to make the  
-      webpage more appealing -->
-  <link href="css/Style.css"  type="text/css" rel="Stylesheet" onload="updateFontDefault();"> 
+    <script src="https://kit.fontawesome.com/0b070f850c.js" crossorigin="anonymous"></script>
+    <style>
+        .container{
+            position:absolute;
+            width: 40%;
+            top:50%;
+            left:50%;
+            transform: translate(-50%, -50%);
+        }
+        .center {
+            width:100%;
+            text-align: center;
+        }
+
+        button {
+            border-radius: 25px;
+            padding: 10%;
+        }
+        
+        form{
+            padding:0% 1%;
+            display: inline-block;
+        }
+    </style>
 </head> 
-  
+
 <body >
-  <div class="topnav">
-    <div class="search-container">
-      <button id="rndBtn">Random card</button>
-      <input type="text" placeholder="Search..." name="search" id="search" autocomplete="off">
-      <button id="subBtn">
-        Search
-      </button>
-      <ul id="suggestion-container">
-      </ul>
+    <div class="container">
+        <div class="center">
+            <form style="float: left;" action="Random.html">
+                <button type="submit">
+                    <i class="fas fa-random fa-10x"></i>
+                </button>
+            </form>
+            <form style="float: none;" action="Search.html">
+                <button type="submit">
+                    <i class="fas fa-search fa-10x"></i>
+                </button>
+            </form>
+            <form style="float: right;" action="DeckTest.html">
+                <button type="submit">
+                    <i class="fas fa-vial fa-10x"></i>
+                </button>
+            </form>
+        </div>
     </div>
-  </div>
-  <img id="cardImg" src="">
-  <img id="blankImg" src="">
-  <div class="Interactable" id="user-img">
-    <div class="Name"><h2 id="Name" class="fit"></h2></div>  
-    <div class="id"><p id="Id"></p></div>
-    <div class="Type"><h3 id="Type"></h3></div>
-    <div class="Race"><h3 id="Race"></h3></div>
-    <div class="Attribute"><img id="Attribute" src=""></div>
-    
-    <div id="Desc" class="desc"><p  class="fit" id="Effect"></p></div>
-  </div>
-  
 </body>
 
 </html> 
