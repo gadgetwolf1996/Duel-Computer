@@ -1,0 +1,5 @@
+.searchButton {
+  background: url(../Templates/WebElements/magnifier.png) no-repeat scroll 7px
+    7px;
+  padding-left: 30px;
+}
