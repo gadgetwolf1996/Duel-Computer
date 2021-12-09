@@ -161,11 +161,12 @@ td {
   top: 578px;
   left: 25px;
 }
-.Attribute {
+#Attribute {
   position: absolute;
-  top: -120px;
-  left: 202px;
-  scale: 12%;
+  top: 26px;
+  left: 348px;
+  width: 10%;
+  height: auto;
 }
 
 .Interactable{
