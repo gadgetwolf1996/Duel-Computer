@@ -1,5 +1,6 @@
 //Card Search Bar
 var maxChar = 300;
+var user;
 
 function updateFontDefault(){
   descFontSize = parseInt(window.getComputedStyle(document.getElementById('Effect'), null).getPropertyValue('font-size').replace('px',''));
@@ -31,6 +32,7 @@ async function getUser() {
   slashcheck();
   //getCardData();
   document.getElementById("rndBtn").addEventListener("click", function () {
+    relevantList = [];
     getCardData();
   });
   //Predictive Text
@@ -91,7 +93,6 @@ function cardNameSearch(cardName) {
 
 function getCardData(cardData = -1){
   // Retreiving data from JSON 
-  var user;
   if(cardData > -1){
     user = data.data[cardData];
   }
