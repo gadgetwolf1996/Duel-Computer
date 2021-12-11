@@ -1,8 +1,9 @@
 var relevantList = [];
 
 function searchEffects(){
+    relevantList = [];
     data.data.forEach(findQuoted);
-    debugger;
+    if(relevantList)console.log(relevantList);
 }
 
 function findQuoted(item, index){
@@ -16,4 +17,15 @@ function findQuoted(item, index){
     }
 
     if(count>0)relevantList.push(item);
+}
+
+function searchAttributeEffect(){
+    relevantList = [];
+    data.data.forEach(findAttributeQuoted);
+    if(relevantList)console.log(relevantList);
+}
+
+function findAttributeQuoted(item, index){
+    if(!item.desc.includes(user.attribute))return;
+    relevantList.push(item);
 }
