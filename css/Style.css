@@ -78,7 +78,7 @@ h2 {
   width: 26%;
   height: auto;
   z-index: 2;
-  float: right;
+  float: center;
 }
 
 desc {
