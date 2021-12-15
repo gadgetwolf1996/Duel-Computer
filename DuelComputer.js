@@ -521,7 +521,7 @@ function calcRowsUsed(fontSize, lineHeight, descLength, log = false, breakNum = 
   var charPerRow = width/(fontSize/2);
   var maxRows = height/lineHeight;
   var rowsUsed = 0;
-  if (breakNum <= 0) {
+  if (breakNum <= 1) {
     rowsUsed = descLength / charPerRow;
   }
   else {
@@ -539,19 +539,23 @@ function calcRowsUsed(fontSize, lineHeight, descLength, log = false, breakNum = 
     console.log("Excess: " + excess);
   }
 
-  return excess;
+  return rowsUsed <= maxRows;
 }
 
 function scaleFont(descLength, defaultFontSize, breakNum = 0){
   var currentValues= new Array(defaultFontSize, descLineHeight);
+  var additiontoggle = 1;
   console.log("---Font Scaling Start---");
-  while(calcRowsUsed(currentValues[0], currentValues[1], descLength, true, breakNum) <= -1.1){
+  while(!calcRowsUsed(currentValues[0], currentValues[1], descLength, true, breakNum)){
+    if(currentValues[0] < 0)additiontoggle = -1
+    else additiontoggle = 1;
+    
     if(currentValues[1] % 1 == 0.5){
-      currentValues[1] = currentValues[1] - 0.5;
+      currentValues[1] = currentValues[1] - (0.5 * additiontoggle);
     }
     else{
-      currentValues[1] = currentValues[1] - 0.5;
-      currentValues[0] = currentValues[0] - 1;
+      currentValues[1] = currentValues[1] - (0.5 * additiontoggle);
+      currentValues[0] = currentValues[0] - (1 * additiontoggle);
     }
     console.log("New Font Size: " + currentValues[0] + " | New Line Height: " + currentValues[1]);
     console.log("---Next Font Scaling---");
