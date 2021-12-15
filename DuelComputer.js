@@ -73,6 +73,8 @@ async function getUser() {
     //document.getElementById("blankImg").remove();
     getCardData(cardNameSearch(document.getElementById("search").value));
   });
+
+  if(window.location.href.split("?")[1].includes("random"))getCardData();
 }
 
 function slashcheck() {

@@ -13,6 +13,15 @@
   src: url(Fonts/StoneSerifITCProSemiBd.OTF) format("opentype");
 }
 
+a.button {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+
+  text-decoration: none;
+  color: initial;
+}
+
 button {
   float: right;
 }
@@ -78,7 +87,7 @@ h2 {
   width: 26%;
   height: auto;
   z-index: 2;
-  float: center;
+  float: right;
 }
 
 desc {
