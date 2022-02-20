@@ -15,6 +15,7 @@ function findQuoted(item, index){//TBA: Validity checks for Card Name references
     var count = 0;
     for(i = 0; i < content.length; i++){
         if(content[i].length<2)continue;
+        if(content[i] == ", ")continue;
         count += user.name.includes(content[i])?1:0;
     }
 

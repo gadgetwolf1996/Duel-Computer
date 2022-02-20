@@ -30,42 +30,64 @@ div {
   line-height: 14.5px;
 }
 
-#blankImg {
-  position: absolute;
-  z-index: 0;
-}
+/* #blankImg {
+   position: absolute; 
+   z-index: 0; 
+} */
 
 #cardImg {
-  position: absolute;
-  width:420px;
-  height:610px;
-  z-index: -1;
+  position:relative;
+  float: left;
+  /* position: absolute; */
+  margin: 20px;
+  height: 390px;
+  max-height: 100%;
+  max-width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /* z-index: -1; */
   /*scale: auto 617px;*/
 }
 /*Effect Text Font*/
 p {
   font-family: 'Matrix';
   width: 352px;
-  height: 77px;
-  padding: 0;
-  margin: 0;
+  height: auto;
+  /* padding: 0; */
+  /* margin: 0; */
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 h3 {
   font-variant: small-caps;
+  width: 352px;
+  height: auto;
   text-align: justify;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  /* margin-top: 0px; */
+  /* margin-bottom: 0px; */
+  padding: 5px;
   white-space: nowrap;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 h2 {
   font-family: 'Matrix';
+  width: 352px;
+  height: auto;
   font-variant: small-caps;
   font-weight: 95;
   text-align: justify;
-  margin-top: 5px;
+  /* margin-top: 5px; */
+  padding: 5px;
   white-space: nowrap;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .content {
@@ -98,19 +120,19 @@ desc {
   text-align: center;
   height:auto;
 }
-img {
-  display: block;
+/* img { */
+  /* display: block; */
   /*border-radius: 5px;*/
-  box-shadow: black;
+  /* box-shadow: black; */
   /*max-height: 100%;*/
   /*max-width: 40%;*/
-  text-align:center;
+  /* text-align:center; */
   /*width: 30%;
   height: auto;*/
-  float: left;
-  text-align: center;
-  position: relative;
-}
+  /* float: left; */
+  /* text-align: center; */
+  /* position: relative; */
+/* } */
 
 table,
 td {
@@ -122,24 +144,25 @@ td {
   border: 1px solid black;
 }
 
-.Type {
-  position: absolute;
+/* .Type {
+  position: relative;
   top: 80px;
   right: 40px;
-}
+}*/
 
-.Name {
-  position: absolute;
+/* .Name {
+  position: relative;
   top: 34px;
   left: 35px;
+  float: left;
   width: 310px;
   height: 31px;
   padding: 0%;
   margin: 0%;
-}
+}  */
 
-.Race {
-  position: absolute;
+/* .Race {
+  position: relative;
   top: 458px;
   left: 35px;
   font-size: 14px;
@@ -147,7 +170,7 @@ td {
   font-weight: 600;
 }
 #Desc {
-  position: absolute;
+  position: relative;
   top: 0px;
   left: 35px;
   text-align: justify;
@@ -159,36 +182,41 @@ td {
   font-size: 17px;
   line-height: 15px;
   font-weight: lighter;
-}
+} */
 /*.EdSummonCon {
   position: absolute;
   top: 1px;
   left: 50px;
 }*/
-.id {
+/* .id {
   position: absolute;
   top: 578px;
   left: 25px;
-}
+} */
 #Attribute {
-  position: absolute;
-  top: 26px;
-  left: 348px;
-  width: 10%;
+  /* position: absolute; */
+  /* top: 26px; */
+  /* left: 348px; */
+  width: 50px;
   height: auto;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .Interactable{
-  position:absolute;
-  width:420px;
-  height:610px;
+  position:relative;
+  width:auto;
+  max-width: 50%;
+  float: left;
+  /* width:420px;
+  height:610px; */
 }
 
-#Name{
+/* #Name{
   font-size:38px;
   display:flex;
   align-items: center;
-}
+} */
 
 span:hover{
   background: antiquewhite;

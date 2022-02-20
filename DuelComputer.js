@@ -109,29 +109,32 @@ function getCardData(cardData = -1){
   var desc = "";
   var race = "";
   var attribute = "";
+  var level = "";
 
   //set card information variables
   id = user.id;
   name = user.name;
   type = user.type;
-  switch (type) {
-    case 'Tuner Monster':
-      type = type.replace('Tuner', 'Tuner Effect');
-      break;
-    case 'Toon Monster':
-      type = type.replace('Toon', 'Toon Effect');
-      break;
-    case 'Spirit Monster':
-      type = type.replace('Spirit', 'Spirit Effect');
-      break;
-    case 'Gemini Monster':
-      type = type.replace('Gemini', 'Gemini Effect');
-    default:
-      break;
-  }
   desc = user.desc;
+  // switch (type) {
+  //   case 'Tuner Monster':
+  //     type = type.replace('Tuner', 'Tuner Effect');
+  //     break;
+  //   case 'Toon Monster':
+  //     type = type.replace('Toon', 'Toon Effect');
+  //     break;
+  //   case 'Spirit Monster':
+  //     type = type.replace('Spirit', 'Spirit Effect');
+  //     break;
+  //   case 'Gemini Monster':
+  //     type = type.replace('Gemini', 'Gemini Effect');
+  //     break;
+  //   default:
+  //     break;
+  // }
   race = user.race;
   attribute = user.attribute;
+  level = user.level != null ? user.level : "";
 
   //console.log(desc);
   desc = desc.replace(/(\r\n|\n|\r|\n\r)/g, "<br>");
@@ -152,26 +155,14 @@ function getCardData(cardData = -1){
   document.title = name;
 
   
-  if (type.includes("Monster")) {
-    document.getElementById("Desc").style.top = 475 + "px";
-    document.getElementById("Desc").style.height = 73 + "px";
-    var temp = type;
-    temp = temp.replace(' Monster', '');
-    var templist = temp.split(' ');
-    document.getElementById("Race").innerHTML = "[" + race + "/";
-    for (let index = 0; index < templist.length; index++) {
-      if (index == templist.length - 1) {
-        document.getElementById("Race").innerHTML += templist[index] + "]";
-      }
-      else {
-        document.getElementById("Race").innerHTML += templist[index] + "/";
-      }
-    }
+  
+
+  
+  if(type.includes("Spell")||type.includes("Trap")) {;
+    document.getElementById("Race").style.display = "none";
   }
-  else {
-    document.getElementById("Race").innerHTML = "";
-    document.getElementById("Desc").style.top = 458 + "px";
-    document.getElementById("Desc").style.height = 110 + "px";
+  else{
+    document.getElementById("Race").style.display = "block";
   }
   
   if (type.includes("Monster")){
@@ -210,6 +201,27 @@ function getCardData(cardData = -1){
     
   }
 
+  if (type.includes("Monster")) {
+    document.getElementById("Desc").style.top = 475 + "px";
+    document.getElementById("Desc").style.height = 73 + "px";
+    var temp = type;
+    temp = temp.replace(' Monster', (document.getElementsByClassName("Effect")[0].childElementCount > 0 && !temp.includes("Effect")) ? " Effect" : '');
+    var templist = temp.split(' ');
+    document.getElementById("Race").innerHTML = "[" + race + "/";
+    for (let index = 0; index < templist.length; index++) {
+      if (index == templist.length - 1) {
+        document.getElementById("Race").innerHTML += templist[index] + "]";
+      }
+      else {
+        document.getElementById("Race").innerHTML += templist[index] + "/";
+      }
+    }
+  }
+  else {
+    document.getElementById("Race").innerHTML = "";
+    document.getElementById("Desc").style.top = 458 + "px";
+    document.getElementById("Desc").style.height = 110 + "px";
+  }
 
   //font size alteration
   var returnedVar;
@@ -255,15 +267,21 @@ function getCardData(cardData = -1){
 
   //Title Font colour change
   document.getElementById("Name").innerHTML = name;
-  if (type.includes("XYZ") || type.includes("Trap") || type.includes("Link") || type.includes("Spell")) {
-    document.getElementById("Name").style.color = 'white';
-  }
-  else {
-    document.getElementById("Name").style.color = 'black';
-  }
+  // if (type.includes("XYZ") || type.includes("Trap") || type.includes("Link") || type.includes("Spell")) {
+  //   document.getElementById("Name").style.color = 'white';
+  // }
+  // else {
+  //   document.getElementById("Name").style.color = 'black';
+  // }
   document.getElementById("Name").style.fontSize = scaleTitleFont(name.length) + "px";
-  document.getElementById("Id").innerHTML = id;
+  // document.getElementById("Id").innerHTML = id;
   document.getElementById("Type").innerHTML = type;
+  if(type.includes("Spell")||type.includes("Trap")) {;
+    document.getElementById("Type").style.display = "block";
+  }
+  else{
+    document.getElementById("Type").style.display = "none";
+  }
   /*
   // Accessing the div container and modify/add 
   // elements to the containers 
@@ -288,72 +306,72 @@ function getCardData(cardData = -1){
 
   let blankImg = document.getElementById("blankImg");
   
-  if(type.includes('Pendulum')){
-    if(type.includes('Effect')){
-      if(type.includes('Fusion')){
-        blankImg.src = '/Templates/Pendulum Effect Fusion Monster.png';
-      }
-      else{
-        if(type.includes('Synchro')){
-          blankImg.src = '/Templates/Synchro Pendulum Effect Monster.png';
-        }
-        else{
-          if(type.includes('XYZ')){
-            blankImg.src = '/Templates/Xyz Pendulum Effect Monster.png';
-          }
-          else{
-            blankImg.src = '/Templates/Pendulum Effect Monster.png';
-          }
-        }
-      }
-    }
-    else{
-      blankImg.src = '/Templates/Pendulum Normal Monster.png';
-    }
-  }
-  else{
-    if(type.includes('Normal')){
-      blankImg.src = '/Templates/Normal Monster.png';
-    }
-    else{
-      if(type.includes('Fusion')){
-        blankImg.src = '/Templates/Fusion Monster.png';
-      }
-      else{
-        if(type.includes('Link')){
-          blankImg.src = '/Templates/Link Monster.png';
-        }
-        else{
-          if(type.includes('Ritual')){
-            blankImg.src = '/Templates/Ritual Monster.png';
-          }
-          else{
-            if(type.includes('Spell')){
-              blankImg.src = '/Templates/Spell.png';
-            }
-            else{
-              if(type.includes('Trap')){
-                blankImg.src = '/Templates/Trap.png';
-              }
-              else{
-                if(type.includes('Synchro')){
-                  blankImg.src = '/Templates/Synchro Monster.png';
-                }
-                else{
-                  if(type.includes('XYZ')){
-                    blankImg.src = '/Templates/Xyz Monster.png';
-                  }
-                  else{
-                    blankImg.src = '/Templates/Effect Monster.png';
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+  // if(type.includes('Pendulum')){
+  //   if(type.includes('Effect')){
+  //     if(type.includes('Fusion')){
+  //       blankImg.src = '/Templates/Pendulum Effect Fusion Monster.png';
+  //     }
+  //     else{
+  //       if(type.includes('Synchro')){
+  //         blankImg.src = '/Templates/Synchro Pendulum Effect Monster.png';
+  //       }
+  //       else{
+  //         if(type.includes('XYZ')){
+  //           blankImg.src = '/Templates/Xyz Pendulum Effect Monster.png';
+  //         }
+  //         else{
+  //           blankImg.src = '/Templates/Pendulum Effect Monster.png';
+  //         }
+  //       }
+  //     }
+  //   }
+  //   else{
+  //     blankImg.src = '/Templates/Pendulum Normal Monster.png';
+  //   }
+  // }
+  // else{
+  //   if(type.includes('Normal')){
+  //     blankImg.src = '/Templates/Normal Monster.png';
+  //   }
+  //   else{
+  //     if(type.includes('Fusion')){
+  //       blankImg.src = '/Templates/Fusion Monster.png';
+  //     }
+  //     else{
+  //       if(type.includes('Link')){
+  //         blankImg.src = '/Templates/Link Monster.png';
+  //       }
+  //       else{
+  //         if(type.includes('Ritual')){
+  //           blankImg.src = '/Templates/Ritual Monster.png';
+  //         }
+  //         else{
+  //           if(type.includes('Spell')){
+  //             blankImg.src = '/Templates/Spell.png';
+  //           }
+  //           else{
+  //             if(type.includes('Trap')){
+  //               blankImg.src = '/Templates/Trap.png';
+  //             }
+  //             else{
+  //               if(type.includes('Synchro')){
+  //                 blankImg.src = '/Templates/Synchro Monster.png';
+  //               }
+  //               else{
+  //                 if(type.includes('XYZ')){
+  //                   blankImg.src = '/Templates/Xyz Monster.png';
+  //                 }
+  //                 else{
+  //                   blankImg.src = '/Templates/Effect Monster.png';
+  //                 }
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
   //const favicon = document.getElementById("favicon"); 
   //favicon.setAttribute("href", image_icon);
 }
@@ -546,11 +564,11 @@ function scaleFont(descLength, defaultFontSize, breakNum = 0){
   var currentValues= new Array(defaultFontSize, descLineHeight);
   var additiontoggle = 1;
   console.log("---Font Scaling Start---");
-  while(!calcRowsUsed(currentValues[0], currentValues[1], descLength, true, breakNum)){
+  while(!calcRowsUsed(currentValues[0], currentValues[1], descLength, true, breakNum)){//still not right
     if(currentValues[0] < 0)additiontoggle = -1
     else additiontoggle = 1;
     
-    if(currentValues[1] % 1 == 0.5){
+    if(currentValues[1] % 1 == 0.5){//this could be a boolean instead. or a counter
       currentValues[1] = currentValues[1] - (0.5 * additiontoggle);
     }
     else{
