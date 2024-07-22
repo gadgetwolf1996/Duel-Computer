@@ -1,5 +1,66 @@
+@font-face {
+  font-family: "Matrix";
+  src: url("Fonts/Matrix_Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Matrix Flavour";
+  src: url("Fonts/itc-stone-serif-lt-italic.ttf") format("truetype");
+}
+
+button {
+  float: right;
+}
+
+div {
+  line-height: 14.5px;
+}
+
+#blankImg {
+  position: absolute;
+  top:1.5%;
+  z-index: 0;
+}
+
+#cardImg {
+  position: absolute;
+  top:1%;
+  z-index: -1;
+  /*scale: auto 617px;*/
+}
+/*Effect Text Font*/
+p {
+  font-family: 'Matrix';
+  width: 352px;
+  height: 77px;
+  padding: 0;
+  margin: 0;
+}
+
+h3 {
+  font-family: 'Matrix';
+  font-variant: small-caps;
+  text-transform: capitalize;
+  text-align: justify;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+h2 {
+  font-family: 'Matrix';
+  font-variant: small-caps;
+  text-transform: capitalize;
+  text-align: justify;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  white-space: nowrap;
+  font-weight: 575;
+  font-stretch: extra-expanded;
+}
+
 .content {
-  text-align: left;
   padding: 30px;
   margin: 0px auto;
 }
@@ -11,20 +72,36 @@
   float: left;
 }
 
+.topnav{
+  overflow: hidden;
+  background-color: #333;
+  top: 0; /* Position the navbar at the top of the page */
+  width: 26%;
+  height: auto;
+  z-index: 2;
+  float: right;
+}
+
 desc {
   float: right;
 }
 
+.search-container{
+  text-align: center;
+  height:auto;
+}
 img {
   display: block;
-  border-radius: 5px;
+  /*border-radius: 5px;*/
   box-shadow: black;
-  max-height: 500px;
-  max-width: 50%;
-  width: auto;
-  height: auto;
+  /*max-height: 100%;*/
+  /*max-width: 40%;*/
+  text-align:center;
+  /*width: 30%;
+  height: auto;*/
   float: left;
-  padding: 1%;
+  text-align: center;
+  position: relative;
 }
 
 table,
@@ -35,4 +112,62 @@ td {
   text-align: center;
   padding: 10px;
   border: 1px solid black;
+}
+
+.Type {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.Name {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 280px;
+  height: 34px;
+  padding: 0%;
+  margin: 0%;
+}
+
+.Race {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  font-size: 17px;
+}
+.desc {
+  position: absolute;
+  top: 0px;
+  left: 40px;
+  text-align: justify;
+  width: 352px;
+  height: 77px;
+}
+
+#Effect{
+  font-size: 16px;
+  line-height: 13px;
+}
+/*.EdSummonCon {
+  position: absolute;
+  top: 1px;
+  left: 50px;
+}*/
+.id {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.Attribute {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  scale: 0px;
+}
+
+.Interactable{
+  width:420px;
+  height:610px;
+  top: 1.5%;
 }
