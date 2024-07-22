@@ -18,9 +18,23 @@ async function getUser() {
     // Making an API call (request) 
     // and getting the response back 
     const response = await fetch(api_url); 
-  
+    console.log(decodeURIComponent(document.cookie));
     // Parsing it to JSON format 
-    data = await response.json(); 
+    if(!decodeURIComponent(document.cookie).includes('Spell Card')){
+      var wholeData = "{";
+      data = await response.json(); 
+      for(var i = 0; i < data.data.length; i++){
+        var temp = JSON.stringify(data.data[i]);
+        wholeData += temp + (i==data.data.length-1?"}":",");
+      }
+      document.cookie = wholeData;
+    }
+    else{
+      data = decodeURIComponent(document.cookie);
+      data.data = JSON.parse(data);
+    }
+    // Parsing it to JSON format 
+    //data = await response.json(); 
     
     
     //console.log(data.data);
