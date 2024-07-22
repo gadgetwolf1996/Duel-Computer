@@ -1,42 +1,62 @@
-<!DOCTYPE html> 
-<html lang="en"> 
-  
-<head> 
-  <meta charset="UTF-8" /> 
-  <meta name="viewport" content= 
-    "width=device-width, initial-scale=1.0" /> 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="DuelComputer.js"></script>
     <script src="DCSynergy.js"></script>
     <script src="Searching.js"></script>
-  <!-- font-awesome library to make the  
+    <script src="SearchBar.js"></script>
+    <!-- font-awesome library to make the  
       webpage more appealing -->
-  <link href="css/Style.css"  type="text/css" rel="Stylesheet" onload="updateFontDefault();"> 
-</head> 
-  
-<body >
-  <div class="topnav">
-    <div class="search-container">
-      <button id="rndBtn">Random card</button>
-      <input type="text" placeholder="Search..." name="search" id="search" autocomplete="off">
-      <button id="subBtn">
-        Search
-      </button>
-      <ul id="suggestion-container">
-      </ul>
-    </div>
-  </div>
-  <img id="cardImg" src="">
-  <img id="blankImg" src="">
-  <div class="Interactable" id="user-img">
-    <div class="Name"><h2 id="Name" class="fit" onclick="searchEffects();"></h2></div>  
-    <!-- <div class="id"><p id="Id"></p></div> -->
-    <div class="Type"><h3 id="Type"></h3></div>
-    <div class="Race"><h3 id="Race"></h3></div>
-    <div class="Attribute"><img id="Attribute" src="" onclick="searchAttributeEffect();"></div>
-    
-    <div id="Desc" class="desc"><p  class="fit" id="Effect"></p></div>
-  </div>
-  
-</body>
+    <link
+      href="css/Style.css"
+      type="text/css"
+      rel="Stylesheet"
+      onload="updateFontDefault();"
+    />
+  </head>
 
-</html> 
+  <body>
+    <div class="topnav">
+      <div class="search-container">
+        <button id="rndBtn">Random card</button>
+        <button id="subBtn">Search</button>
+        <form autocomplete="off">
+          <div class="autocomplete" style="width: 300px">
+            <input
+              id="myInput"
+              type="text"
+              name="search"
+              placeholder="Search..."
+            />
+          </div>
+        </form>
+        <!-- <input
+          type="text"
+          placeholder="Search..."
+          name="search"
+          id="search"
+          autocomplete="off"
+        /> -->
+        <ul id="suggestion-container"></ul>
+      </div>
+    </div>
+
+    <img id="cardImg" src="" />
+    <img id="blankImg" src="" />
+    <div class="Interactable" id="user-img">
+      <div class="Name">
+        <h2 id="Name" class="fit" onclick="searchEffects();"></h2>
+      </div>
+      <!-- <div class="id"><p id="Id"></p></div> -->
+      <div class="Type"><h3 id="Type"></h3></div>
+      <div class="Race"><h3 id="Race"></h3></div>
+      <div class="Attribute">
+        <img id="Attribute" src="" onclick="searchAttributeEffect();" />
+      </div>
+
+      <div id="Desc" class="desc"><p class="fit" id="Effect"></p></div>
+    </div>
+  </body>
+</html>

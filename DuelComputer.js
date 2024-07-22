@@ -2,47 +2,46 @@
 var maxChar = 300;
 var user;
 
-function updateFontDefault(){
-  descFontSize = parseInt(window.getComputedStyle(document.getElementById('Effect'), null).getPropertyValue('font-size').replace('px',''));
-  descLineHeight = parseInt(window.getComputedStyle(document.getElementById('Effect'), null).getPropertyValue('line-height').replace('px', ''));
+function updateFontDefault() {
+  descFontSize = parseInt(
+    window
+      .getComputedStyle(document.getElementById("Effect"), null)
+      .getPropertyValue("font-size")
+      .replace("px", "")
+  );
+  descLineHeight = parseInt(
+    window
+      .getComputedStyle(document.getElementById("Effect"), null)
+      .getPropertyValue("line-height")
+      .replace("px", "")
+  );
   //console.log("Fontsize reset: " + descFontSize);
-  descTitleFontSize = parseInt(window.getComputedStyle(document.getElementById("Name"), null).getPropertyValue('font-size'));
+  descTitleFontSize = parseInt(
+    window
+      .getComputedStyle(document.getElementById("Name"), null)
+      .getPropertyValue("font-size")
+  );
 }
 
 //Card analysis
-const api_url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?format=tcg"; 
-let data;//json data
+const api_url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?format=tcg";
+let data; //json data
 
-async function getUser() { 
-    //let descFontSize = document.getElementById("Effect").style.fontSize;
-    // Making an API call (request) 
-    // and getting the response back 
-    const response = await fetch(api_url); 
-    console.log(decodeURIComponent(document.cookie));
-    // Parsing it to JSON format 
-    if(!decodeURIComponent(document.cookie).includes('Spell Card')){
-      var wholeData = "{";
-      data = await response.json(); 
-      for(var i = 0; i < data.data.length; i++){
-        var temp = JSON.stringify(data.data[i]);
-        wholeData += temp + (i==data.data.length-1?"}":",");
-      }
-      document.cookie = wholeData;
-    }
-    else{
-      data = decodeURIComponent(document.cookie);
-      data.data = JSON.parse(data);
-    }
-    // Parsing it to JSON format 
-    //data = await response.json(); 
-    
-    
-    //console.log(data.data);
-    var cardnames = [];
-    for(var i = 0; i < data.data.length; i++){
-      cardnames[i] = data.data[i].name;
-    }
-  
+async function getUser() {
+  //let descFontSize = document.getElementById("Effect").style.fontSize;
+  // Making an API call (request)
+  // and getting the response back
+  const response = await fetch(api_url);
+  console.log(decodeURIComponent(document.cookie));
+
+  data = await response.json();
+  autocomplete(document.getElementById("myInput"), data.data);
+  //console.log(data.data);
+  var cardnames = [];
+  for (var i = 0; i < data.data.length; i++) {
+    cardnames[i] = data.data[i].name;
+  }
+
   slashcheck();
   //getCardData();
   document.getElementById("rndBtn").addEventListener("click", function () {
@@ -50,49 +49,48 @@ async function getUser() {
     getCardData();
   });
   //Predictive Text
-  const searchbar = document.getElementById("search");
-  const suggestion = document.getElementById("suggestion-container");
-  let suggestedWord = "";
-  let suggestedWordArray = [];
-  let currentWordIndex = 0;
-  let insertText = false;
-  searchbar.addEventListener("input", e => {
-    if(e.data != " "){
-      insertText = true;
-    }
-    if(insertText == false){
-      searchbar.value = "";
-    }
+  // const searchbar = document.getElementById("search");
+  // const suggestion = document.getElementById("suggestion-container");
+  // let suggestedWord = "";
+  // let suggestedWordArray = [];
+  // let currentWordIndex = 0;
+  // let insertText = false;
+  // searchbar.addEventListener("input", (e) => {
+  //   if (e.data != " ") {
+  //     insertText = true;
+  //   }
+  //   if (insertText == false) {
+  //     searchbar.value = "";
+  //   }
 
-    let inputValue = e.target.value;
-    suggestedWordArray = filterArray(cardnames, inputValue);
-    suggestedWord = suggestedWordArray[0];
+  //   let inputValue = e.target.value;
+  //   suggestedWordArray = filterArray(cardnames, inputValue);
+  //   suggestedWord = suggestedWordArray[0];
 
-    if(suggestedWord != undefined){
-      var HTMLSetup = "";
-      for(i = 0; i < suggestedWordArray.length; i++){
-        HTMLSetup += "<li><span>" + suggestedWordArray[i] + "</span></li>";
-      }
-      suggestion.innerHTML = HTMLSetup;
-    }
+  //   if (suggestedWord != undefined) {
+  //     var HTMLSetup = "";
+  //     for (i = 0; i < suggestedWordArray.length; i++) {
+  //       HTMLSetup += "<li><span>" + suggestedWordArray[i] + "</span></li>";
+  //     }
+  //     suggestion.innerHTML = HTMLSetup;
+  //   }
 
-    if(inputValue.length == 0 || suggestedWordArray.length == 0){
-      suggestion.innerHTML = "";
-    }
+  //   if (inputValue.length == 0 || suggestedWordArray.length == 0) {
+  //     suggestion.innerHTML = "";
+  //   }
+  // });
+
+  document.getElementById("subBtn").addEventListener("click", function () {
+    // document.getElementById("cardImg").remove();
+    // document.getElementById("blankImg").remove();
+    getCardData(cardNameSearch(document.getElementById("myInput").value));
   });
 
-
-  document.getElementById("subBtn").addEventListener("click", function(){
-    //document.getElementById("cardImg").remove();
-    //document.getElementById("blankImg").remove();
-    getCardData(cardNameSearch(document.getElementById("search").value));
-  });
-
-  if(window.location.href.split("?")[1].includes("random"))getCardData();
+  // if (window.location.href.split("?")[1].includes("random")) getCardData();
 }
 
 function slashcheck() {
-  for (i = 0; i < data.data.length; i++){
+  for (i = 0; i < data.data.length; i++) {
     if (data.data[i].desc.includes(" / ")) {
       //console.log(data.data[i].name);
     }
@@ -100,19 +98,18 @@ function slashcheck() {
 }
 
 function cardNameSearch(cardName) {
-  for (i = 0; i < data.data.length; i++){
+  for (i = 0; i < data.data.length; i++) {
     if (data.data[i].name == cardName) {
       return i;
     }
   }
 }
 
-function getCardData(cardData = -1){
-  // Retreiving data from JSON 
-  if(cardData > -1){
+function getCardData(cardData = -1) {
+  // Retreiving data from JSON
+  if (cardData > -1) {
     user = data.data[cardData];
-  }
-  else{
+  } else {
     user = data.data[getRandomInt(data.data.length)];
   }
 
@@ -152,86 +149,92 @@ function getCardData(cardData = -1){
 
   //console.log(desc);
   desc = desc.replace(/(\r\n|\n|\r|\n\r)/g, "<br>");
-  if(desc.includes("\" / \"")){
-  }
-  else{
+  if (desc.includes('" / "')) {
+  } else {
     desc = desc.replace(" / ", "<br>");
   }
-  
+
   ////console.log(desc);
   //desc = desc.replace(/(\r\n|\n|\r|\n\r)/g, "<br>");
   //desc = desc.replace(" / ", "<br>");
-  
+
   //images
-  let image = user.card_images[0].image_url; 
+  let image = user.card_images[0].image_url;
   let image_icon = user.card_images[0].image_url_small;
-  
+
   document.title = name;
 
-  
-  
-
-  
-  if(type.includes("Spell")||type.includes("Trap")) {;
+  if (type.includes("Spell") || type.includes("Trap")) {
     document.getElementById("Race").style.display = "none";
-  }
-  else{
+  } else {
     document.getElementById("Race").style.display = "block";
   }
-  
-  if (type.includes("Monster")){
-    document.getElementById("Attribute").src = "/Templates/Attributes/" + attribute + ".png";
-  }
-  else {
+
+  if (type.includes("Monster")) {
+    document.getElementById("Attribute").src =
+      "/Templates/Attributes/" + attribute + ".png";
+  } else {
     switch (type) {
-      case 'Trap Card':
-        document.getElementById("Attribute").src = "/Templates/Attributes/Trap.png";
+      case "Trap Card":
+        document.getElementById("Attribute").src =
+          "/Templates/Attributes/Trap.png";
         break;
-      case 'Spell Card':
-        document.getElementById("Attribute").src = "/Templates/Attributes/Spell.png";
+      case "Spell Card":
+        document.getElementById("Attribute").src =
+          "/Templates/Attributes/Spell.png";
         break;
       default:
         break;
     }
   }
   var penDesc;
-  if(type.includes("Pendulum") && desc.includes("----------------------------------------")){
-    penDesc = desc.split('<br>----------------------------------------<br>')[0].replace('[ Pendulum Effect ]<br>', '');
-    if(type.includes("Normal")){
-      desc = desc.split('<br>----------------------------------------<br>')[1].replace('[ Flavor Text ]<br>', '');
-    }
-    else{
-      desc = desc.split('<br>----------------------------------------<br>')[1].replace('[ Monster Effect ]<br>', '');
+  if (
+    type.includes("Pendulum") &&
+    desc.includes("----------------------------------------")
+  ) {
+    penDesc = desc
+      .split("<br>----------------------------------------<br>")[0]
+      .replace("[ Pendulum Effect ]<br>", "");
+    if (type.includes("Normal")) {
+      desc = desc
+        .split("<br>----------------------------------------<br>")[1]
+        .replace("[ Flavor Text ]<br>", "");
+    } else {
+      desc = desc
+        .split("<br>----------------------------------------<br>")[1]
+        .replace("[ Monster Effect ]<br>", "");
     }
   }
-  
+
   if (type.includes("Normal") || type.includes("Token")) {
     document.getElementById("Effect").innerHTML = desc;
     document.getElementById("Effect").style.fontFamily = "Matrix Flavour";
-  }
-  else{
+  } else {
     document.getElementById("Effect").style.fontFamily = "Matrix";
     document.getElementById("Effect").innerHTML = analyseDesc(desc, type);
-    
   }
 
   if (type.includes("Monster")) {
     document.getElementById("Desc").style.top = 475 + "px";
     document.getElementById("Desc").style.height = 73 + "px";
     var temp = type;
-    temp = temp.replace(' Monster', (document.getElementsByClassName("Effect")[0].childElementCount > 0 && !temp.includes("Effect")) ? " Effect" : '');
-    var templist = temp.split(' ');
+    temp = temp.replace(
+      " Monster",
+      document.getElementsByClassName("Effect")[0].childElementCount > 0 &&
+        !temp.includes("Effect")
+        ? " Effect"
+        : ""
+    );
+    var templist = temp.split(" ");
     document.getElementById("Race").innerHTML = "[" + race + "/";
     for (let index = 0; index < templist.length; index++) {
       if (index == templist.length - 1) {
         document.getElementById("Race").innerHTML += templist[index] + "]";
-      }
-      else {
+      } else {
         document.getElementById("Race").innerHTML += templist[index] + "/";
       }
     }
-  }
-  else {
+  } else {
     document.getElementById("Race").innerHTML = "";
     document.getElementById("Desc").style.top = 458 + "px";
     document.getElementById("Desc").style.height = 110 + "px";
@@ -239,20 +242,21 @@ function getCardData(cardData = -1){
 
   //font size alteration
   var returnedVar;
-  if(type.includes("Normal")){
+  if (type.includes("Normal")) {
     returnedVar = scaleFont(desc.length, 16);
-  }
-  else {
-    if ((desc.match(/<br>/g || [])) != null) {
-      returnedVar = scaleFont(desc.length, descFontSize, (desc.match(/<br>/g || [])).length);
-    }
-    else {
+  } else {
+    if (desc.match(/<br>/g || []) != null) {
+      returnedVar = scaleFont(
+        desc.length,
+        descFontSize,
+        desc.match(/<br>/g || []).length
+      );
+    } else {
       returnedVar = scaleFont(desc.length, descFontSize);
     }
-    
   }
-  document.getElementById('Effect').style.fontSize = returnedVar[0] +'px';
-  document.getElementById('Effect').style.lineHeight = returnedVar[1]+'px';
+  document.getElementById("Effect").style.fontSize = returnedVar[0] + "px";
+  document.getElementById("Effect").style.lineHeight = returnedVar[1] + "px";
   /*
   //console.log(tempFontSize);
   document.getElementById('Effect').style.fontSize= descFontSize + 'px';
@@ -287,13 +291,13 @@ function getCardData(cardData = -1){
   // else {
   //   document.getElementById("Name").style.color = 'black';
   // }
-  document.getElementById("Name").style.fontSize = scaleTitleFont(name.length) + "px";
+  document.getElementById("Name").style.fontSize =
+    scaleTitleFont(name.length) + "px";
   // document.getElementById("Id").innerHTML = id;
   document.getElementById("Type").innerHTML = type;
-  if(type.includes("Spell")||type.includes("Trap")) {;
+  if (type.includes("Spell") || type.includes("Trap")) {
     document.getElementById("Type").style.display = "block";
-  }
-  else{
+  } else {
     document.getElementById("Type").style.display = "none";
   }
   /*
@@ -312,14 +316,14 @@ function getCardData(cardData = -1){
         = city + ", " + state; 
       
     document.querySelector("#country").textContent = country; 
-*/  
-  // Creating a new element and appending it 
-  // to previously created containers 
+*/
+  // Creating a new element and appending it
+  // to previously created containers
   let img = document.getElementById("cardImg");
   img.src = image;
 
   let blankImg = document.getElementById("blankImg");
-  
+
   // if(type.includes('Pendulum')){
   //   if(type.includes('Effect')){
   //     if(type.includes('Fusion')){
@@ -386,78 +390,90 @@ function getCardData(cardData = -1){
   //     }
   //   }
   // }
-  //const favicon = document.getElementById("favicon"); 
+  //const favicon = document.getElementById("favicon");
   //favicon.setAttribute("href", image_icon);
 }
-  
+
 let cardText;
 let effectSegment;
-function analyseDesc(desc, type){
-    var htmlConversion = "";
-    cardText = desc;
-    var condition = "";
-    var edSummonCon = "";
-    //Extra Deck summon condition
-    //var edcheck = cardText.includes("\n");
-    var edmon;
-    if (type == "Fusion Monster" || type == "Link Monster" || type == "Pendulum Effect Fusion Monster" || type == "Synchro Monster" || type == "Synchro Pendulum Effect Monster" || type == "Synchro Tuner Monster" || type == "XYZ Monster" || type == "XYZ Pendulum Effect Monster") {
-      edmon = true;
-      cardText = cardText.replace("<br>", "<br id=\"extradecksplit\">");
-      //console.log(cardText.split("<br id=\"extradecksplit\">")[0]);
-      edSummonCon = cardText.split("<br id=\"extradecksplit\">")[0];
-      cardText = cardText.split("<br id=\"extradecksplit\">")[1];
-    }
-    else {
-      edmon = false;
-    }
-    /*if(type == "Synchro Monster" || type == "XYZ Monster" || type == "Fusion Monster" || type == "Link Monster"){
+function analyseDesc(desc, type) {
+  var htmlConversion = "";
+  cardText = desc;
+  var condition = "";
+  var edSummonCon = "";
+  //Extra Deck summon condition
+  //var edcheck = cardText.includes("\n");
+  var edmon;
+  if (
+    type == "Fusion Monster" ||
+    type == "Link Monster" ||
+    type == "Pendulum Effect Fusion Monster" ||
+    type == "Synchro Monster" ||
+    type == "Synchro Pendulum Effect Monster" ||
+    type == "Synchro Tuner Monster" ||
+    type == "XYZ Monster" ||
+    type == "XYZ Pendulum Effect Monster"
+  ) {
+    edmon = true;
+    cardText = cardText.replace("<br>", '<br id="extradecksplit">');
+    //console.log(cardText.split("<br id=\"extradecksplit\">")[0]);
+    edSummonCon = cardText.split('<br id="extradecksplit">')[0];
+    cardText = cardText.split('<br id="extradecksplit">')[1];
+  } else {
+    edmon = false;
+  }
+  /*if(type == "Synchro Monster" || type == "XYZ Monster" || type == "Fusion Monster" || type == "Link Monster"){
         if(cardText.)
         cardText= edSummonCon[1];
         edSummonCon = "<p>" + edSummonCon[0] + "<br>" + "</p>";
         htmlConversion += edSummonCon;
     }*/
-    if (cardText != undefined) {
-      cardText = cardText.split(".");
-      var multicheck = Array.isArray(cardText);
-      if (multicheck) {
-        cardText.forEach(effect => {
-          if (effect != "") {
-            effectSegment = effect;
-            htmlConversion += ActivationConditions();
-            htmlConversion += CostTargetting();
-            htmlConversion += "<span style=color:blue>" + effectSegment + "." + "</span>";
-          }
-        });
-      }
-      else {
-        effectSegment = cardText;
-        htmlConversion += ActivationConditions();
-        htmlConversion += CostTargetting();
-        htmlConversion += "<span style=color:blue>" + effectSegment + "</span>";
-      }
+  if (cardText != undefined) {
+    cardText = cardText.split(".");
+    var multicheck = Array.isArray(cardText);
+    if (multicheck) {
+      cardText.forEach((effect) => {
+        if (effect != "") {
+          effectSegment = effect;
+          htmlConversion += ActivationConditions();
+          htmlConversion += CostTargetting();
+          htmlConversion +=
+            "<span style=color:blue>" + effectSegment + "." + "</span>";
+        }
+      });
+    } else {
+      effectSegment = cardText;
+      htmlConversion += ActivationConditions();
+      htmlConversion += CostTargetting();
+      htmlConversion += "<span style=color:blue>" + effectSegment + "</span>";
     }
-  
-    if (edmon) {
-      
-      return "<font class=\"EdSummonCon\"> <span>" + edSummonCon + "</span></font>" + "<br><font class=\"Effect\">" + htmlConversion + "</font>";
-    }
-    else {
-      return "<font class=\"Effect\">" + htmlConversion + "</font>";
-    }
-    
   }
 
-function ActivationConditions(){
+  if (edmon) {
+    return (
+      '<font class="EdSummonCon"> <span>' +
+      edSummonCon +
+      "</span></font>" +
+      '<br><font class="Effect">' +
+      htmlConversion +
+      "</font>"
+    );
+  } else {
+    return '<font class="Effect">' + htmlConversion + "</font>";
+  }
+}
+
+function ActivationConditions() {
   var context = "";
   var concheck = effectSegment.includes(":");
-  if (concheck){
+  if (concheck) {
     context = effectSegment.split(":");
     effectSegment = context[1];
     var tempTemp = "";
     if (context[0].includes(")")) {
       tempTemp = context[0].split(")")[1];
-      
-      if(tempTemp.includes("●")) {
+
+      if (tempTemp.includes("●")) {
         tempTemp = tempTemp.replace("●", "");
       }
 
@@ -467,10 +483,9 @@ function ActivationConditions(){
 
       tempTemp = tempTemp.split(" ")[0];
       //addToList(tempTemp);
-    }
-    else {
+    } else {
       tempTemp = context[0];
-      if(tempTemp.includes("●")) {
+      if (tempTemp.includes("●")) {
         tempTemp = tempTemp.replace("●", "");
       }
 
@@ -486,13 +501,13 @@ function ActivationConditions(){
   return context;
 }
 
-function CostTargetting(){
+function CostTargetting() {
   var costext = "";
   var coscheck = effectSegment.includes(";");
-  if(coscheck){
-      costext = effectSegment.split(";");
-      effectSegment = costext[1];
-      costext = "<span style=color:red>" + costext[0] + "; " + "</span>";
+  if (coscheck) {
+    costext = effectSegment.split(";");
+    effectSegment = costext[1];
+    costext = "<span style=color:red>" + costext[0] + "; " + "</span>";
   }
   return costext;
 }
@@ -501,44 +516,47 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-
 function filterArray(array, item, reverse = false) {
-	if (reverse) {
-		return array
-			.filter(word => compareTwoStrings(word, item))
-			.sort((a, b) => a.length - b.length);
-	} else {
-		return array
-			.filter(word => compareTwoStrings(word, item))
-			.sort((a, b) => b.length - a.length);
-	}
+  if (reverse) {
+    return array
+      .filter((word) => compareTwoStrings(word, item))
+      .sort((a, b) => a.length - b.length);
+  } else {
+    return array
+      .filter((word) => compareTwoStrings(word, item))
+      .sort((a, b) => b.length - a.length);
+  }
 }
 
 function compareTwoStrings(string, subString) {
-	let temp = "";
-  if(string.includes(subString)){
+  let temp = "";
+  if (string.includes(subString)) {
     temp = string;
     return subString;
-  } 
+  }
 }
 
-function calcNewTitleFont(fontSize, width, titleLength){
-  var charPerRow = width/(fontSize/2);
+function calcNewTitleFont(fontSize, width, titleLength) {
+  var charPerRow = width / (fontSize / 2);
   //console.log("Title Length: " + titleLength);
   //console.log("MaxChars: " + charPerRow);
   //var actualChars = titleLength/charPerRow;
   var excess = charPerRow - titleLength;
-  
+
   //console.log("Difference: " + excess);
   return excess;
 }
 
-function scaleTitleFont(titleLength){
+function scaleTitleFont(titleLength) {
   var scaledTitleFont = descTitleFontSize;
-  var width = parseInt(window.getComputedStyle(document.getElementById('Desc'), null).getPropertyValue('width'));
+  var width = parseInt(
+    window
+      .getComputedStyle(document.getElementById("Desc"), null)
+      .getPropertyValue("width")
+  );
   //var charCount = width / (scaledTitleFont/2);
   console.log("---Title Size Calc---");
-  while(calcNewTitleFont(scaledTitleFont, width, titleLength) <=-4){
+  while (calcNewTitleFont(scaledTitleFont, width, titleLength) <= -4) {
     scaledTitleFont = scaledTitleFont - 1;
     console.log("Updated Title Font: " + scaledTitleFont);
     console.log("---New Size Calc---");
@@ -547,22 +565,35 @@ function scaleTitleFont(titleLength){
   console.log("New Title Font Size: " + scaledTitleFont);
   return scaledTitleFont;
 }
-function calcRowsUsed(fontSize, lineHeight, descLength, log = false, breakNum = 0){
-  var width = parseInt(window.getComputedStyle(document.getElementById('Desc'), null).getPropertyValue('width'));
-  var height = parseInt(window.getComputedStyle(document.getElementById('Desc'), null).getPropertyValue('height'));
-  var charPerRow = width/(fontSize/2);
-  var maxRows = height/lineHeight;
+function calcRowsUsed(
+  fontSize,
+  lineHeight,
+  descLength,
+  log = false,
+  breakNum = 0
+) {
+  var width = parseInt(
+    window
+      .getComputedStyle(document.getElementById("Desc"), null)
+      .getPropertyValue("width")
+  );
+  var height = parseInt(
+    window
+      .getComputedStyle(document.getElementById("Desc"), null)
+      .getPropertyValue("height")
+  );
+  var charPerRow = width / (fontSize / 2);
+  var maxRows = height / lineHeight;
   var rowsUsed = 0;
   if (breakNum <= 1) {
     rowsUsed = descLength / charPerRow;
-  }
-  else {
-    rowsUsed = descLength / (charPerRow - (charPerRow / breakNum));
+  } else {
+    rowsUsed = descLength / (charPerRow - charPerRow / breakNum);
   }
   var excess = maxRows - rowsUsed;
-  
-  if(log){
-    console.log("Width: " + width);  
+
+  if (log) {
+    console.log("Width: " + width);
     console.log("Height: " + height);
     console.log("Total No. of Charcters: " + descLength);
     console.log("Characters per row: " + charPerRow);
@@ -574,22 +605,36 @@ function calcRowsUsed(fontSize, lineHeight, descLength, log = false, breakNum = 
   return rowsUsed <= maxRows;
 }
 
-function scaleFont(descLength, defaultFontSize, breakNum = 0){
-  var currentValues= new Array(defaultFontSize, descLineHeight);
+function scaleFont(descLength, defaultFontSize, breakNum = 0) {
+  var currentValues = new Array(defaultFontSize, descLineHeight);
   var additiontoggle = 1;
   console.log("---Font Scaling Start---");
-  while(!calcRowsUsed(currentValues[0], currentValues[1], descLength, true, breakNum)){//still not right
-    if(currentValues[0] < 0)additiontoggle = -1
+  while (
+    !calcRowsUsed(
+      currentValues[0],
+      currentValues[1],
+      descLength,
+      true,
+      breakNum
+    )
+  ) {
+    //still not right
+    if (currentValues[0] < 0) additiontoggle = -1;
     else additiontoggle = 1;
-    
-    if(currentValues[1] % 1 == 0.5){//this could be a boolean instead. or a counter
-      currentValues[1] = currentValues[1] - (0.5 * additiontoggle);
+
+    if (currentValues[1] % 1 == 0.5) {
+      //this could be a boolean instead. or a counter
+      currentValues[1] = currentValues[1] - 0.5 * additiontoggle;
+    } else {
+      currentValues[1] = currentValues[1] - 0.5 * additiontoggle;
+      currentValues[0] = currentValues[0] - 1 * additiontoggle;
     }
-    else{
-      currentValues[1] = currentValues[1] - (0.5 * additiontoggle);
-      currentValues[0] = currentValues[0] - (1 * additiontoggle);
-    }
-    console.log("New Font Size: " + currentValues[0] + " | New Line Height: " + currentValues[1]);
+    console.log(
+      "New Font Size: " +
+        currentValues[0] +
+        " | New Line Height: " +
+        currentValues[1]
+    );
     console.log("---Next Font Scaling---");
   }
   console.log("New Font Size: " + currentValues[0]);
@@ -597,5 +642,5 @@ function scaleFont(descLength, defaultFontSize, breakNum = 0){
   return currentValues;
 }
 
-// Calling the function 
+// Calling the function
 getUser();

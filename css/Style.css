@@ -1,16 +1,41 @@
 @font-face {
-  font-family: "Matrix";
-  src: url("Fonts/Matrix_Regular.ttf") format("truetype");
+  font-family: "opendyslexic";
+  src: url("http://dyslexicfonts.com/fonts/OpenDyslexic-Regular.otf");
+  font-style: normal;
+  font-weight: normal;
 }
 
 @font-face {
-  font-family: "Matrix Flavour";
-  src: url("Fonts/StoneSerifITCProMediumIt.OTF") format("opentype");
+  font-family: "opendyslexic";
+  src: url("http://dyslexicfonts.com/fonts/OpenDyslexic-Italic.ttf");
+  font-style: italic;
+  font-weight: normal;
 }
 
 @font-face {
-  font-family: "ITC Bold";
-  src: url(Fonts/StoneSerifITCProSemiBd.OTF) format("opentype");
+  font-family: "opendyslexic";
+  src: url("http://dyslexicfonts.com/fonts/OpenDyslexic-Bold.ttf");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "opendyslexic";
+  src: url("http://dyslexicfonts.com/fonts/OpenDyslexic-BoldItalic.ttf");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: eulexia;
+  src: url("http://dyslexicfonts.com/fonts/eulexia.ttf");
+}
+
+* {
+  font-size: 20px;
+  line-height: 100%;
+  color: #191a42;
+  font-family: opendyslexic !important;
 }
 
 a.button {
@@ -20,10 +45,6 @@ a.button {
 
   text-decoration: none;
   color: initial;
-}
-
-button {
-  float: right;
 }
 
 div {
@@ -36,7 +57,7 @@ div {
 } */
 
 #cardImg {
-  position:relative;
+  position: relative;
   float: left;
   /* position: absolute; */
   margin: 20px;
@@ -50,7 +71,6 @@ div {
 }
 /*Effect Text Font*/
 p {
-  font-family: 'Matrix';
   width: 352px;
   height: auto;
   /* padding: 0; */
@@ -76,7 +96,6 @@ h3 {
 }
 
 h2 {
-  font-family: 'Matrix';
   width: 352px;
   height: auto;
   font-variant: small-caps;
@@ -102,8 +121,7 @@ h2 {
   float: left;
 }
 
-.topnav{
-  overflow: hidden;
+.topnav {
   background-color: #333;
   top: 0; /* Position the navbar at the top of the page */
   width: 26%;
@@ -116,22 +134,22 @@ desc {
   float: right;
 }
 
-.search-container{
+.search-container {
   text-align: center;
-  height:auto;
+  height: auto;
 }
 /* img { */
-  /* display: block; */
-  /*border-radius: 5px;*/
-  /* box-shadow: black; */
-  /*max-height: 100%;*/
-  /*max-width: 40%;*/
-  /* text-align:center; */
-  /*width: 30%;
+/* display: block; */
+/*border-radius: 5px;*/
+/* box-shadow: black; */
+/*max-height: 100%;*/
+/*max-width: 40%;*/
+/* text-align:center; */
+/*width: 30%;
   height: auto;*/
-  /* float: left; */
-  /* text-align: center; */
-  /* position: relative; */
+/* float: left; */
+/* text-align: center; */
+/* position: relative; */
 /* } */
 
 table,
@@ -203,9 +221,9 @@ td {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.Interactable{
-  position:relative;
-  width:auto;
+.Interactable {
+  position: relative;
+  width: auto;
   max-width: 50%;
   float: left;
   /* width:420px;
@@ -218,7 +236,67 @@ td {
   align-items: center;
 } */
 
-span:hover{
+span:hover {
   background: antiquewhite;
   opacity: 0.5;
+}
+
+body {
+  font: 16px Arial;
+  box-sizing: border-box;
+}
+.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+}
+input {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+input[type="text"] {
+  background-color: #f1f1f1;
+  width: 100%;
+  box-sizing: border-box;
+}
+input[type="submit"] {
+  background-color: DodgerBlue;
+  color: #fff;
+  box-sizing: border-box;
+}
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  max-height: 75vh;
+  overflow: auto;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+  box-sizing: border-box;
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9;
+  box-sizing: border-box;
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+  box-sizing: border-box;
 }
