@@ -18,29 +18,27 @@
   </head>
 
   <body>
-    <div class="topnav">
-      <div class="search-container">
-        <button id="rndBtn">Random card</button>
+    <div class="navbar">
+      <a id="rndBtn">Random</a>
+      <form autocomplete="off">
+        <div class="autocomplete" style="width: 300px">
+          <input
+            id="myInput"
+            type="text"
+            name="search"
+            placeholder="Search..."
+          />
+        </div>
         <button id="subBtn">Search</button>
-        <form autocomplete="off">
-          <div class="autocomplete" style="width: 300px">
-            <input
-              id="myInput"
-              type="text"
-              name="search"
-              placeholder="Search..."
-            />
-          </div>
-        </form>
-        <!-- <input
+      </form>
+      <!-- <input
           type="text"
           placeholder="Search..."
           name="search"
           id="search"
           autocomplete="off"
         /> -->
-        <ul id="suggestion-container"></ul>
-      </div>
+      <ul id="suggestion-container"></ul>
     </div>
 
     <img id="cardImg" src="" />
